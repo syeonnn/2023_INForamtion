@@ -11636,22 +11636,22 @@ margin-right: 0.5rem;
 	max-width: 800px;
 	margin: 0 auto;
 }
-.item-wrap .items { /* 자식들을 감싸고 있는 부모 */
+.item-wrap .items { 
 	display: block;
-	margin: 0 -300px; /* 너비간 10px 간격을 만들기 위해 남은 5px을 양옆으로 땡겨줌 */
+	margin: 0 -300px; 
 }
 .item-wrap .items:before,
 .item-wrap .items:after {
 	content: '';
 	display: block;
-	clear: both; /* clear를 해주어야지만 float 다음에 올 태그의 영역이 올바르게 차지함 */
+	clear: both; 
 }
-.item-wrap .items .item { /* 나란히 배치할 영역 */
+.item-wrap .items .item { 
 	float: right;
 	width: 50%;
   height: 320px;
-	text-align: center; /* 영역 안 태그들의 텍스트가 center로 오도록 준 속성 */
-	box-sizing: border-box; /* width값이 오롯이 50%를 갖게 하기 위해 준 속성 */
+	text-align: center; 
+	box-sizing: border-box; 
   padding : 10px;
   transform: translateY(20px);
 }
@@ -11663,14 +11663,14 @@ margin-right: 0.5rem;
   background: aliceblue;
 }
 
-.item-wrap .items .item .inner { /* 나란히 배치할 영역 안 텍스트를 감싼 div */
+.item-wrap .items .item .inner {
 	overflow: hidden;
 	position: relative;
 	height: 300px;
 	background: aliceblue;
   border: solid 2px ;
 }
-.item-wrap .items .item .inner:before { /* 텍스트를 수직 가운데 정렬하기 위한 가상선택자 */
+.item-wrap .items .item .inner:before { 
 	content: '';
 	position: absolute;
 	top: 0;
@@ -11678,7 +11678,7 @@ margin-right: 0.5rem;
 	width: 0;
 	height: 100%;
 }
-.item-wrap .items .item .inner span { /* 가상선택자와 나란히 배치하기 위해 준 속성 */
+.item-wrap .items .item .inner span { 
 	position: absolute;
 	top: 50%;
 	left: 50%;
