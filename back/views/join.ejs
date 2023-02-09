@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+        <h1>회원가입</h1>
+        <form method="post" action="./join_submit">
+            이름 <input type="text" name="name"><br>
+            Email <input type="text" name="email"><br>
+            비밀번호 <input type="text" name="password"><br>
+            비밀번호 확인 <input type="text" name="cpassword"><br>
+            <input type="submit" value="회원가입">
+        </form>
+        <p class="margin">이미 계정을 갖고 계신가요? <a href="./login">로그인하기</a></p>
+  </body>
+</html>
