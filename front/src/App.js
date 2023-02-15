@@ -5,13 +5,25 @@ import Home from './components/Home';
 import Footer from './components/Footer';
 import Learning from './components/Learning';
 import Quiz from './components/Quiz';
+import Register from './components/Register';
+import LoginModal from './components/LoginModal';
 import { Routes, Route } from 'react-router-dom'
 //import { Navbar, Container, Nav } from 'react-bootstrap'
 
 function App() {
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+
   return (
     <>
-
       <Navigation />
 
       <Routes>
@@ -20,13 +32,11 @@ function App() {
           <Route path="hi" element={<p>안녕하세요</p>} />
           <Route path="good-to-see-you" element={<p>만나서 반갑습니다</p>} />
           <Route path="thanks" element={<p>감사합니다</p>} />
-
-
         </Route>
+        <Route path="/register" element={<Register />} />
       </Routes>
 
       <Footer />
-
     </>
   );
 }

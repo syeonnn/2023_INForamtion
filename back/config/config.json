@@ -1,0 +1,29 @@
+{    
+    "rdb" : {
+        "client" : "mysql2",
+        "host" : "localhost",
+        "port" : 3306,
+        "user" : "root",
+        "password" : "root",
+        
+        "charset" : "utf8"
+    },
+    "redis": {
+        "host" : "redis-19634.c15.us-east-1-4.ec2.cloud.redislabs.com",
+        "port" : 19634,
+        "username" : "default",
+        "password" : "3k1BMPm9nVd5K8DFVrLSJOx2rlOeieyt" 
+    },
+    "session": {
+        "key": "passport_session",
+        "secret": "s3cret!"
+    },
+    "oauth": {
+        "google": {
+            "clientid": "495816766189-j1i0q35tbdgba6b0m1ss6r6fgdievbr8.apps.googleusercontent.com",
+            "clientsecret": "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",
+            "callbackurl": "/login/oauth/google/callback"
+        }
+    }
+}
+

@@ -3,14 +3,18 @@ var session = require("express-session");
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var flash = require("connect-flash");
+const cors = require('cors');
 
-var app = express();
+const app = express();
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(flash());
+app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.json());
+
 
 app.use(session({
     secret: "keyboard cat", // 세션을 암호화해 저장
@@ -23,7 +27,7 @@ var videoRouter = require("./routes/video");
 app.use("/video", videoRouter);
 
 var userRouter = require("./routes/auth")(app);
-app.use("/auth", userRouter);
+app.use("/join", userRouter);
 
 app.get("/", (req, res, next) => {
     var userId = "";
@@ -46,7 +50,7 @@ app.get('/home', function (req, res, next) {
     // res.render('home', {"user_id" : req.session.passport.user});
 });
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+app.listen(4000, function () {
+    console.log('Example app listening on port 4000!');
 });
 
