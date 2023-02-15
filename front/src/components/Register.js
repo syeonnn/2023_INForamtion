@@ -3,12 +3,12 @@ import axios from "axios"
 
 export default function Register() {
     
-    // const [inputs, setInputs] = useState({  
-    //     name: '',
-    //     email: '',
-    //     password: '',
-    //     cpassword: ''
-    // })
+    const [inputs, setInputs] = useState({  
+         name: '',
+         email: '',
+         password: '',
+         cpassword: ''
+    })
      
     const onSubmitHandler = async(e)=>{
         e.preventDefault();
