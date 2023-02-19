@@ -3,12 +3,12 @@ import axios from "axios"
 
 export default function Register() {
     
-    // const [inputs, setInputs] = useState({  
-    //     name: '',
-    //     email: '',
-    //     password: '',
-    //     cpassword: ''
-    // })
+    const [inputs, setInputs] = useState({  
+        name: '',
+        email: '',
+        password: '',
+        cpassword: ''
+    })
      
     const onSubmitHandler = async(e)=>{
         e.preventDefault();
@@ -17,11 +17,13 @@ export default function Register() {
         const password=e.target.password.value;
         const cpassword=e.target.cpassword.value;
         
-        await axios.post("http://localhost:4000/join/join_submit", {
+        await axios.post("http://localhost:4000/api/register", {
             "name": name,
             "email": email,
             "password": password,
             "cpassword": cpassword
+        }).then((res) => {
+            console.log(res);
         });
       }
     

@@ -9,6 +9,7 @@ import Register from './components/Register';
 import LoginModal from './components/LoginModal';
 import { Routes, Route } from 'react-router-dom'
 //import { Navbar, Container, Nav } from 'react-bootstrap'
+import React, { useEffect, useState } from "react";
 
 function App() {
 

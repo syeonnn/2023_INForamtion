@@ -1,56 +1,24 @@
-var express = require("express");
-var session = require("express-session");
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var flash = require("connect-flash");
-const cors = require('cors');
+const express = require("express");
+const connectDB = require("./config/db");
+const cors = require('cors')
 
 const app = express();
-app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
-app.use(flash());
-app.use(cors())
+const PORT = process.env.PORT || 4000;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.json());
-
-
-app.use(session({
-    secret: "keyboard cat", // 세션을 암호화해 저장
-    resave: false, // 세션이 변경되지 않아도 덮어쓰기 허용 여부
-    saveUninitialized: true // 세션 초기값이 지정되지 않은 상태에서 미리 만들어 저장할지
-}));
+app.use(express.json({ extended: false })); // allow to get the data in req.body
+app.use(cors());
 
 // Routes
-var videoRouter = require("./routes/video");
-app.use("/video", videoRouter);
+const registerRouter = require("./routes/api/register");
+app.use("/api/register", registerRouter);
 
-var userRouter = require("./routes/auth")(app);
-app.use("/join", userRouter);
-
-app.get("/", (req, res, next) => {
-    var userId = "";
-    var msg;
-    var errMsg = req.flash("error");
-    if (errMsg) {
-        msg = errMsg;
-    }
-
-    console.log("세션 쿠키 확인:", req.session);
-
-    if (!req.session?.passport) {
-        userId = req.session.passport?.user;
-    }
-    res.render("login", { title : "login", userId : userId, message : msg });
+app.get("/", (req, res) => {
+    res.send("API running...");
 });
 
-app.get('/home', function (req, res, next) {
-    res.render('home', {"user_id" : req?.user?.name});
-    // res.render('home', {"user_id" : req.session.passport.user});
-});
+// Connect DB
+connectDB();
 
-app.listen(4000, function () {
-    console.log('Example app listening on port 4000!');
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
-
