@@ -1,6 +1,6 @@
 const express = require("express");
-const User = require("../../models/User");
 const router = express.Router();
+const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 
 function checkPassword (password, cpassword) {
