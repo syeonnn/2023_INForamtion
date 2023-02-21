@@ -3,6 +3,7 @@ const config = require("config");
 
 // URI
 const uri = config.get("mongoURI");
+// const uri = config.get("mongoURI_local");
 
 // Connect MongoDB
 const connectDB = async () => {

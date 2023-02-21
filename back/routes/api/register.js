@@ -1,7 +1,8 @@
 const express = require("express");
 const User = require("../../models/User");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
 
 function checkPassword (password, cpassword) {
     if (password === cpassword) {
@@ -28,7 +29,7 @@ router.post("/", async (req, res) => {
         var user = await User.findOne({ email });
 
         if (user) {
-            return res.status(400).json({ errors: [{ msg: "User already exists" }] });
+            return res.status(402).json({ errors: [{ msg: "User already exists" }] });
         }
 
         // 1. 새로운 user 생성
@@ -38,17 +39,36 @@ router.post("/", async (req, res) => {
             password
         })
         
-        // 2. password 암호화
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
-
-        // 3. db에 user 저장
+        // 2. db에 user 저장
         await user.save();
 
-        res.status(200).send("Success");
+        /*
+        // 3. json web token 생성 -> client에 전달
+        const payload = {
+            user: {
+                id: user._id,
+            },
+        };
+
+        jwt.sign(
+            payload, // token으로 변환할 데이터
+            "jwtSecret", // secret key 값
+            { expiresIn: "1h" }, // token 유효시간
+            (err, token) => {
+                if (err) throw err;
+                res.status(200).send({token});
+            }
+        );
+        */
+        res.status(200).json({
+            success: true
+        });
     } catch (err) {
         console.error(err);
-        res.status(500).send("Server Error");
+        res.status(500).json({
+            success: false,
+            err
+        });
     }
 });
 

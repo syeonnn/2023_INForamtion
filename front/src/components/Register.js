@@ -2,7 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 
 export default function Register() {
-    
+
     const [inputs, setInputs] = useState({  
         name: '',
         email: '',
@@ -24,6 +24,10 @@ export default function Register() {
             "cpassword": cpassword
         }).then((res) => {
             console.log(res);
+
+            if(res.status === 200) { // 회원가입 성공 시 메인 페이지로 이동 
+                document.location.href = '/'
+            }
         });
       }
     
