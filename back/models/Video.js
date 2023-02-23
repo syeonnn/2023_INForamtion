@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const videoSchema = mongoose.Schema({
-    filePath : {
+    fileName : {
         type: String,
         required: true
     },
@@ -10,7 +10,10 @@ const videoSchema = mongoose.Schema({
         type:String,
         maxlength:50,
         required: true
-    }  
+    },
+    description: {
+        type: String,
+    }
 })
 
 

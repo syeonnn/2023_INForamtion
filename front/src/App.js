@@ -20,9 +20,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/learning" element={<Learning />}>
-          <Route path="hi" element={<p>안녕하세요</p>} />
-          <Route path="good-to-see-you" element={<p>만나서 반갑습니다</p>} />
+          
         </Route>
+        <Route path="learning/:videoId" element={<Learning />}></Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         
