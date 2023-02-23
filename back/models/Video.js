@@ -2,15 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const videoSchema = mongoose.Schema({
-   
-    filePath : {
-        type: String,
-    },
     mean: {
         type:String,
         maxlength:50,
-    }
-    
+    },
+    filePath : {
+        type: String,
+    } 
 })
 
 

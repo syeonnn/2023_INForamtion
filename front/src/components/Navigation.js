@@ -4,8 +4,39 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { NavLink, Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
+import axios from 'axios';
+import { useEffect, useState } from 'react'
 
 export default function Navigation() {
+
+
+
+    const [Videos, setVideos] = useState([])
+
+    useEffect(() => {
+        axios.get("http://localhost:4000/api/video/getVideos")
+            .then(response => {
+                if (response.data.success) {
+                    // console.log(response.data.videos)
+                    const data = JSON.stringify(response.data.videos)
+                    setVideos(data)
+                    console.log(Videos);
+
+                    // console.log(Videos[0]._id)
+
+                    
+                } else {
+                    alert('Failed to get Videos')
+                }
+            })
+    }, [])
+
+
+    // const videoList = Videos.map(
+    //     (index,data) => <li key={index}>{data}</li>
+    // );
+    // console.log(videoList);
+
     return (
 
         <div className="sb-nav-fixed">
