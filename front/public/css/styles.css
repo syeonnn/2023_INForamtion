@@ -1407,6 +1407,7 @@ fieldset:disabled .btn {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
+  text-align: center !important;
 }
 
 .btn-secondary:hover {
@@ -5393,7 +5394,7 @@ fieldset:disabled .btn {
 
 .bg-gray {
   --bs-bg-opacity: 1;
-  background-color: #343a40 !important;
+  background-color: #6c757d !important;
 }
 
 .bg-dark {
@@ -5666,6 +5667,7 @@ header.learningspace {
 
 .learningspace {
   padding-top: 71px;
+  padding-left: 225px;
   height: 100vh;
   width: 100vw;
   background-color: transparent;
@@ -6257,8 +6259,9 @@ body {
   background-color: #343a40;
 }
 
-.ft-pd {
+.footer {
   padding: 1.5rem 1.5rem 1.5rem 225px;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .table .tbody .tr .td .video{
@@ -6273,7 +6276,9 @@ body {
     -moz-transform:rotateY(180deg); /* Firefox */
 }
 
-.register {
+.register,
+.login,
+.quizspace {
   padding-top: 71px;
   padding-left: 225px;
   background-color: transparent;
@@ -6284,23 +6289,33 @@ body {
 }
 
 .register .signup {
-  margin: 5rem 20rem 20rem 5rem;  
+  margin: 64px auto auto;
+  width: 320px;
 }
 
-.signup_title {
+.login .signin {
+  margin: 81px auto auto;
+  width: 320px;
+}
+
+.signup_title,
+.signin_title {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  font-size: 26px;
+  font-weight: 500;
 }
 
-.signup_form {
+.signup_form,
+.signin_form {
   display: flex;
   flex-direction: column;
 }
 
 .form_block {
   margin-bottom: 16px;
-  
 }
+
 .form_label {
   line-height: 1.43;
   letter-spacing: -.3px;
@@ -6309,8 +6324,66 @@ body {
   color: #3e4042;
 }
 
+.signup_btn,
+.signin_btn {
+  border: 1px solid;
+  color: #fff;
+  border-color: #f4623a;
+  border-radius: 0.25rem;;
+  font-weight: 700;
+  background-color: #f4623a;
+  padding: 0 16px;
+  height: 48px;
+  line-height: 1.47;
+  font-size: 15px;
+}
+
+
+.form_input {
+  appearance: none;
+  margin-top: 3px;
+  line-height: 1.47;
+  height: 48px;
+  width: 320px;
+  padding: 13px 12px;
+  font-size: 15px;
+  
+  border: 1px solid #dee2e6;
+  letter-spacing: -.3px;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.form_button {
+  margin-top: 16px;
+  margin-bottom: 64px;
+}
+
+/* 
+.modal-close{
+  width:498px;
+}
+.modal-close .btn-close{
+  padding-left: 100px;
+}
+
+.hd-border{
+  border-bottom: none !important;
+}
 
 .signin_form {
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 }
+
+.modal-header .signin-title{
+  justify-content: center;
+}
+
+.signin-title{
+  display: flex;
+  margin: 12px 0 24px;
+  justify-content: center;
+}
+ */

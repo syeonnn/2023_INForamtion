@@ -1,100 +1,108 @@
 import React from 'react'
-import { useEffect,useState,useRef } from 'react'
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
+import { useLocation, useNavigate } from 'react-router'
+// import { Col, Row } from 'antd';
 
-const getWebcam = (callback) => {
-  try {
-    const constraints = {
-      'video': true,
-      'audio': false
-    }
-    navigator.mediaDevices.getUserMedia(constraints)
-      .then(callback);
-  } catch (err) {
-    console.log(err);
-    return undefined;
-  }
-}
 
 export default function Learning() {
-  const [timer, setTimer] = useState(undefined);
 
-  var video = document.querySelector("#videoElement");
-  const videoRef = useRef(null);
-  const canvasRef = useRef(null);
 
-  useEffect(() => {
-    getWebcam((stream => {
-      videoRef.current.srcObject = stream;
-    }));
-  }, []);
+  // const navigate = useNavigate();
+  // const { pathname } = useLocation();
 
-  /*
-  const drawToCanvas = () => {
-    try {
-      const ctx = canvasRef.current.getContext('2d');
-      canvasRef.current.width = videoRef.current.videoWidth;
-      canvasRef.current.height = videoRef.current.videoHeight;
+  const [Videos, setVideos] = useState([{
+    idx: '',
+    mean: '',
+    filePath: ''
+  }])
+  const [Video, setVideo] = useState([{
+    idx: '',
+    mean: '',
+    filePath: ''
+  }])
 
-      if (ctx && ctx !== null) {
-        if (videoRef.current) {
-          // 화면 좌우반전
-          ctx.translate(canvasRef.current.width, 0);
-          ctx.scale(-1, 1);
-          ctx.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
-          //ctx.setTransform(1, 0, 0, 1, 0, 0);
-        }
-        ctx.fillStyle = "white";
-        ctx.fillRect(10, 10, 100, 50);
-        ctx.font = "15px Arial";
-        ctx.fillStyle = "green";
-        ctx.fillText("Ruben Choi", 15, 30);
+
+// const [wordList, setWordList] = useState(string[]);
+// const [isLoading, setIsLoading] = useState(true);
+// const [teachingVideo, setteachingVideo] = useState(true);
+
+//
+
+useEffect(() => {
+  axios.get("http://localhost:4000/api/video/getVideos")
+    .then(response => {
+      if (response.data.success) {
+
+        const data = response.data.videos
+        console.log(JSON.stringify(data))
+        setVideos(data)
+
+        // const data = response.data.videos.map((index)=>({
+        //   idx:index._id,
+        //   mean:index.mean,
+        //   filePath:index.filePath
+        // }) )
+      
+        // const tempvideo = Videos.map((a,i)=>{
+        //   key={i},
+        //   setVideo(a)
+        // })
+        // var videodata = JSON.stringify(data)
+        // console.log(videodata)
+
+        // setVideos({videodata})
+        // console.log(Videos[0])
+
+      } else {
+        alert('Failed to get Videos')
       }
-    } catch (err) {
-      console.log(err);
-    }
-  }*/
 
-  return (
 
-    <div className="learningspace">
+      /*const inputvideo = Videos.map((index) => {
+        id: index._id;
+        mean: index.mean;
+        filePath: index.filePath;
+      })*/
 
-        <table>
-          <tbody>
-            <tr>
-              <td><video ref={videoRef} autoPlay style={{
-                position: "absolute",
-                bottom: 100,
-                left: 680,
-                marginLeft: "auto",
-                marginRight: "auto",
-                textAlign: "center",
-                zIndex: 3,
-                width: 400,
-                height: 300,
-                border: '2px solid black',
-              }} /></td>
-              
-            </tr>
-          </tbody>
-        </table>      
+    })
+}, [])
 
-    </div>
-  )
+
+// //서버로부터 영상 받아서 videos 에 저장
+// const getVideo = async (localIsAlphabet: boolean) => {
+//   const res = await Api.get("hands");
+//   setVideos(res.data);
+
+//   // const words: VideoDataProps[] = res.data.slice(
+//   //   ALPHABET_LENGTH,
+//   //   res.data.length
+//   // );
+//   const mappedWords = words.map((word) => {
+//     return word.english;
+//   });
+//   setWordList(mappedWords);
+// }
+
+// // 특정단어 누르면
+// const handleClickWord = () => {
+//   navigate(`${pathname}/alphabet`);
+// };
+
+
+
+// return (
+//   <div className="learningspace">
+
+//   {Videos.map(a,i) => {
+//     return(
+//       a
+//     )
+//   }}
+
+//   </div>
+// )
+
 }
-
-/*<td><video ref={videoRef} autoPlay style={{
-  position: "absolute",
-  bottom: 115,
-  left: 240,
-  marginLeft: "auto",
-  marginRight: "auto",
-  textAlign: "center",
-  zIndex: 3,
-  width: 400,
-  height: 300,
-}} /></td>
-
-위치!
-*/

@@ -16,10 +16,6 @@ export default function Navigation() {
 
                 <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        로그인
-                    </button>
-
                     <li className="nav-item dropdown">
                         <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fas fa-user fa-fw"></i></Link>
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -32,44 +28,6 @@ export default function Navigation() {
                     </li>
                 </ul>
             </nav>
-
-
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5 align-content-center" id="staticBackdropLabel">생활수어</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div className="form_block">
-                                <input
-                                    name="email"
-                                    placeholder="이메일"
-                                    type="text"
-                                /><br />
-                            </div>
-                            <div className="form_block">
-                                <input
-                                    name="password"
-                                    placeholder="비밀번호"
-                                    type="text"
-                                /><br />
-                            </div>
-                            <div className="form_block">
-                                <input
-                                    name="cpassword"  //위에서 nickname의 값을 가져와 타겟을 가져온다.
-                                    placeholder="비밀번호 확인"
-                                    type="text"
-                                /><br />
-                            </div>
-                        </div>
-                        <div class="signin_form">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">로그인</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
             <div id="layoutSidenav">

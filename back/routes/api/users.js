@@ -15,10 +15,10 @@ router.post("/login", async (req, res) => {
         console.log("find user: ", user);
         
         if (!user) {
-            return res.status(401).json({
+            return res.json({
                 title: "login",
                 success: false,
-                msg: "User does not exist",
+                msg: "존재하지 않는 사용자입니다.",
             });
         }
 
@@ -50,10 +50,11 @@ router.post("/login", async (req, res) => {
         user.comparePassword(password, (err, isMath) => {
             if (err) return res.status(500).json({err: err});
             if (!isMath) {
-                return res.status(402).json({
+                // return res.status(402).json({
+                return res.json({
                     title: "login",
                     success: false,
-                    msg: "Wrong password",
+                    msg: "비밀번호가 틀립니다.",
                 });
             }
 
