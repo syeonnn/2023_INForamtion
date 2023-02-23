@@ -19,14 +19,14 @@ router.post("/", async (req, res) => {
 
     try {
         // 1. 비밀번호 확인
-        // const isValid = checkPassword(password, cpassword);
-        // if (!isValid) {
-        //     return res.json({
-        //         title: "register",
-        //         success: false,
-        //         msg: "password and cpassword don't match"
-        //     });
-        // }
+        const isValid = checkPassword(password, cpassword);
+        if (!isValid) {
+            return res.json({
+                title: "register",
+                success: false,
+                msg: "password and cpassword don't match"
+            });
+        }
         
         // 2. email 비교 -> 이미 존재하는지 확인
         var user = await User.findOne({ email });
