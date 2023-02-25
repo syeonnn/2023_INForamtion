@@ -11,10 +11,10 @@ export default function Navigation() {
 
 
 
-    const [Videos, setVideos] = useState([])
+    const [Videos, setVideos] = useState([]);
 
-    useEffect(() => {
-        axios.get("http://localhost:4000/api/video/getVideos")
+    useEffect( async () => {
+        await  axios.get("http://localhost:4000/api/video/getVideos")
             .then(response => {
                 if (response.data.success) {
                     // console.log(response.data.videos)
