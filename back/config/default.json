@@ -1,5 +1,5 @@
 {
-    "mongoURI":"mongodb+srv://admin:N4ikGIaYM0jtqwAc@cluster0.rh398fq.mongodb.net/?retryWrites=true&w=majority",
+    "mongoURI":"mongodb+srv://admin:N4ikGIaYM0jtqwAc@cluster0.rh398fq.mongodb.net/?retryWrites=true&w=majorit",
     "mongoURI_private":"mongodb+srv://test:TW1QhVroaRHlPhPl@cluster0.uvuvhea.mongodb.net/?retryWrites=true&w=majority",
     "mongoURI_local":"mongodb://127.0.0.1:27017/2023_project"
 }

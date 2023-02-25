@@ -14,11 +14,12 @@ app.use(cors());
 
 // Routes
 const registerRouter = require("./routes/api/register");
+const usersRouter = require("./routes/api/users");
+const videoRouter = require("./routes/api/video");
 app.use("/api/register", registerRouter);
-app.use('/api/video', require('./routes/api/video'));
+app.use("/api/users", usersRouter);
+app.use('/api/video', videoRouter);
 
-const usersRegister = require("./routes/api/users");
-app.use("/api/users", usersRegister);
 
 app.get("/", (req, res) => {
     res.send("API running...");
