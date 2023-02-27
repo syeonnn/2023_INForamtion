@@ -22,7 +22,7 @@ function App() {
         <Route path="/learning" element={<Learning />}>
           
         </Route>
-        <Route path="learning/:videoId" element={<Learning />}></Route>
+        <Route path="/learning/:videoId" element={<Learning />}></Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         

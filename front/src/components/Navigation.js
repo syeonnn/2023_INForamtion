@@ -5,37 +5,35 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavLink, Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 export default function Navigation() {
 
-
-
     const [Videos, setVideos] = useState([]);
 
-    useEffect( async () => {
-        await  axios.get("http://localhost:4000/api/video/getVideos")
-            .then(response => {
-                if (response.data.success) {
-                    // console.log(response.data.videos)
-                    const data = JSON.stringify(response.data.videos)
-                    setVideos(data)
-                    console.log(Videos);
+    useEffect(() => {
+        axios.get("http://localhost:4000/api/video/getVideos")
+            .then((res) => {
+                if (res.data.success) {
+                    // console.log(res.data.videos);
+                    setVideos(res.data.videos);
 
-                    // console.log(Videos[0]._id)
-
-                    
+                    /*
+                    const data = JSON.stringify(res.data.videos);
+                    setVideos(data);
+                    */
                 } else {
-                    alert('Failed to get Videos')
+                    alert('Failed to get Videos');
                 }
             })
-    }, [])
+    }, []);
 
+    const renderLink = Videos.map((video, index) => {
+        // console.log(video); 
+        // var toName = video.fileName.split(".")[0];
 
-    // const videoList = Videos.map(
-    //     (index,data) => <li key={index}>{data}</li>
-    // );
-    // console.log(videoList);
+        return <NavLink key={index} to={`/learning/${video._id}`} className="nav-link">{video.mean}</NavLink>
+    });
 
     return (
 
@@ -79,15 +77,18 @@ export default function Navigation() {
                                     <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
                                 </Link>
 
-
-
                                 <div className="collapse" id="collapseLearning" data-bs-parent="#sidenavAccordion">
                                     <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                         <Link className="nav-link collapsed" data-bs-toggle="collapse" to="#collapseSentence" aria-expanded="false" aria-controls="collapseSentence">
                                             인삿말
                                             <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
                                         </Link>
+
                                         <div className="collapse" id="collapseSentence" data-bs-parent="#sidenavAccordionPages">
+                                            {renderLink}
+                                        </div>
+
+                                        {/* <div className="collapse" id="collapseSentence" data-bs-parent="#sidenavAccordionPages">
                                             <nav className="sb-sidenav-menu-nested nav">
                                                 <NavLink to="/learning/hi" className="nav-link">안녕하세요</NavLink>
                                                 <NavLink to="/learning/good-to-see" className="nav-link">만나서 반갑습니다</NavLink>
@@ -119,7 +120,7 @@ export default function Navigation() {
                                                 <NavLink to="/learning/running" className="nav-link">달리기</NavLink>
                                                 <NavLink to="/learning/swimming" className="nav-link">수영</NavLink>
                                             </nav>
-                                        </div>
+                                        </div> */}
                                     </nav>
                                 </div>
 

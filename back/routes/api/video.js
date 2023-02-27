@@ -12,7 +12,13 @@ router.get("/getVideos", (req, res) => {
     Video.find()
         .exec((err, videos) => {
             if(err) return res.status(400).send(err);
-            res.status(200).json({ success: true, videos });
+            
+            // console.log(videos);
+
+            res.status(200).json({ 
+                success: true, 
+                videos 
+            });
         });
 });
 
@@ -21,7 +27,13 @@ router.post("/getVideo", (req, res) => {
     Video.findOne({ "_id" : req.body.videoId })
         .exec((err, video) => {
             if(err) return res.status(400).send(err);
-            res.status(200).json({ success: true, video });
+
+            // console.log(video);
+            
+            res.status(200).json({ 
+                success: true, 
+                video 
+            });
         });
 });
 
