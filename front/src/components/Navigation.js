@@ -28,7 +28,15 @@ export default function Navigation() {
             })
     }, []);
 
-    const renderLink = Videos.map((video, index) => {
+    // 카테고리 링크 생성
+    // 문제) 저장된 video 정보 마다 한번식 불려서  카테고리 링크가 단어 개수만큼 생김
+    // 우리가 원하는건 카테고리당 한번만 생성되도록 하는 것... 어떡해야하지?
+    const renderCategoryLink = Videos.map((video, index) => {
+        return <Link className="nav-link collapsed" data-bs-toggle="collapse" to={`#collapse${video.category}`} aria-expanded="false" aria-controls={`collapse${video.category}`}>
+            {video.category}<div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div></Link>
+    });
+
+    const renderWordLink = Videos.map((video, index) => {
         // console.log(video); 
         // var toName = video.fileName.split(".")[0];
 
@@ -79,16 +87,19 @@ export default function Navigation() {
 
                                 <div className="collapse" id="collapseLearning" data-bs-parent="#sidenavAccordion">
                                     <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                        {renderCategoryLink}
+
+                                        <div className="collapse" id="collapseSentence" data-bs-parent="#sidenavAccordionPages">
+                                            {renderWordLink}
+                                        </div>
+
+                                        {/* 
                                         <Link className="nav-link collapsed" data-bs-toggle="collapse" to="#collapseSentence" aria-expanded="false" aria-controls="collapseSentence">
                                             인삿말
                                             <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
                                         </Link>
 
                                         <div className="collapse" id="collapseSentence" data-bs-parent="#sidenavAccordionPages">
-                                            {renderLink}
-                                        </div>
-
-                                        {/* <div className="collapse" id="collapseSentence" data-bs-parent="#sidenavAccordionPages">
                                             <nav className="sb-sidenav-menu-nested nav">
                                                 <NavLink to="/learning/hi" className="nav-link">안녕하세요</NavLink>
                                                 <NavLink to="/learning/good-to-see" className="nav-link">만나서 반갑습니다</NavLink>
