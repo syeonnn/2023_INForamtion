@@ -41,5 +41,3 @@ async function getMedia() {
     }
 
 });
-
-

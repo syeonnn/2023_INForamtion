@@ -17,7 +17,7 @@ export default function Learning(props) {
             })
             .then((res) => {
                 if (res.data.success) {
-                    // console.log(res.data.video);
+                    console.log(res.data.video);
                     setVideo(res.data.video);
                 } else {
                     alert('Failed to get video Info');

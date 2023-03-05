@@ -15,13 +15,8 @@ export default function Navigation() {
         axios.get("http://localhost:4000/api/video/getVideos")
             .then((res) => {
                 if (res.data.success) {
-                    // console.log(res.data.videos);
+                    console.log(res.data.videos);
                     setVideos(res.data.videos);
-
-                    /*
-                    const data = JSON.stringify(res.data.videos);
-                    setVideos(data);
-                    */
                 } else {
                     alert('Failed to get Videos');
                 }
@@ -32,14 +27,14 @@ export default function Navigation() {
     // 문제) 저장된 video 정보 마다 한번식 불려서  카테고리 링크가 단어 개수만큼 생김
     // 우리가 원하는건 카테고리당 한번만 생성되도록 하는 것... 어떡해야하지?
     const renderCategoryLink = Videos.map((video, index) => {
+        console.log("renderCategoryLink: ", video);
         return <Link className="nav-link collapsed" data-bs-toggle="collapse" to={`#collapse${video.category}`} aria-expanded="false" aria-controls={`collapse${video.category}`}>
             {video.category}<div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div></Link>
     });
 
     const renderWordLink = Videos.map((video, index) => {
-        // console.log(video); 
+        console.log("renderWordLink: ", video); 
         // var toName = video.fileName.split(".")[0];
-
         return <NavLink key={index} to={`/learning/${video._id}`} className="nav-link">{video.mean}</NavLink>
     });
 
@@ -87,10 +82,12 @@ export default function Navigation() {
 
                                 <div className="collapse" id="collapseLearning" data-bs-parent="#sidenavAccordion">
                                     <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                        {renderCategoryLink}
+                                        <div>
+                                            {renderCategoryLink}
 
-                                        <div className="collapse" id="collapseSentence" data-bs-parent="#sidenavAccordionPages">
-                                            {renderWordLink}
+                                            <div className="collapse" id="collapseSentence" data-bs-parent="#sidenavAccordionPages">
+                                                {renderWordLink}
+                                            </div>
                                         </div>
 
                                         {/* 
