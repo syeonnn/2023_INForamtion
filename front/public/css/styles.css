@@ -5677,6 +5677,83 @@ header.learningspace {
   background-size: cover;
   max-width: 100%;
 }
+.contents{
+  margin:20px auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  width: auto;
+}
+.columns{
+  display: flex;
+  margin-top: -0.75rem;
+  margin-right: -0.75rem;
+  margin-bottom: -0.75rem;
+  margin-left: -0.75rem;
+}
+ .column {
+  display:block;
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 0.75rem;
+ }
+ .article{
+  display: inline-block;
+ }
+ .panel {
+    border-radius: 6px;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+    font-size: 1rem;
+ }
+.panel-heading{
+  background-color: #0c63e4 !important;
+  color: #fff !important;
+  border-radius: 6px 6px 0 0;
+  font-size: 1.25em;
+  font-weight: 700;
+  line-height: 1.25;
+  padding: 0.75em 1em;
+  text-align: center;
+}
+.panel-block{
+  box-sizing: border-box;
+  display:flex;
+  align-items: center;
+  justify-content: center !important;
+  padding: 0.5em 0.75em;
+}
+.panelblockRight{
+  box-sizing: border-box;
+  background-color: #0dcaf0;
+  display:flex;
+  align-items: center;
+  justify-content: center !important;
+  padding: 0.5em 0.75em;
+  border-radius: 0.8rem;
+}
+.panel-footer{
+  color: #000;
+  border-radius: 6px 6px 0 0;
+  font-size: 1.0em;
+  line-height: 1.25;
+  padding: 0.75em 1em;
+  text-align: center;
+}
+
+.videoContents {
+  position: relative;
+  border-radius: 0.8rem;
+}
+
+.videoContents .canvas{
+  position: absolute;
+  top:0px;
+  left:0px;
+  width: 473.17px;
+  height: 354.88px;
+  border-radius: 0.8rem;
+}
 
 .nav {
   display: flex;
