@@ -43,7 +43,7 @@ router.post("/getVideo", (req, res) => {
 
 router.get("/detail", (req, res) => {
     console.log(req.query.id);
-    const filePath = path.resolve("assets", req.query.id);
+    const filePath = path.resolve("assets", req.query.id) + ".MOV";
     // `../../assets/${req.query.id}`; // 파일 저장 경로 환경 변수 설정 필요
 
     const stat = fs.statSync(filePath);
