@@ -35,7 +35,8 @@ export default function Navigation() {
     const renderWordLink = Videos.map((video, index) => {
         console.log("renderWordLink: ", video); 
         // var toName = video.fileName.split(".")[0];
-        return <NavLink key={index} to={`/learning/${video._id}`} className="nav-link">{video.mean}</NavLink>
+        // return <NavLink key={index} to={`/learning/${video._id}`} className="nav-link">{video.mean}</NavLink>
+        return <NavLink key={index} to={`/learning/${video.fileName}`} className="nav-link">{video.mean}</NavLink>
     });
 
     return (
@@ -81,6 +82,10 @@ export default function Navigation() {
                                 </Link>
 
                                 <div className="collapse" id="collapseLearning" data-bs-parent="#sidenavAccordion">
+                                    {renderWordLink}
+                                </div>
+
+                                {/* <div className="collapse" id="collapseLearning" data-bs-parent="#sidenavAccordion">
                                     <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                         <div>
                                             {renderCategoryLink}
@@ -89,7 +94,8 @@ export default function Navigation() {
                                                 {renderWordLink}
                                             </div>
                                         </div>
-
+                                        </nav>
+                                </div> */}
                                         {/* 
                                         <Link className="nav-link collapsed" data-bs-toggle="collapse" to="#collapseSentence" aria-expanded="false" aria-controls="collapseSentence">
                                             인삿말
@@ -129,8 +135,6 @@ export default function Navigation() {
                                                 <NavLink to="/learning/swimming" className="nav-link">수영</NavLink>
                                             </nav>
                                         </div> */}
-                                    </nav>
-                                </div>
 
                                 <Link to="/quiz" className="nav-link">
                                     <div className="sb-nav-link-icon"><i className="fa-solid fa-check"></i></div>

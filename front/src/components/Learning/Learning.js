@@ -160,15 +160,15 @@ function Learning() {
     };
   }, []);
 
+
     return (
         <div className="learningspace">
-            <>
-                {/* <Modal visible={isModalOpen.loadingModal} style={modalStyle}> */}
+          {/* 임시로 모달창 생략함 */}
+            {/* <>
                 <Modal visible={isModalOpen.loadingModal && isModalOpen.modalVisible} style={modalStyle} onClose={closeModal}>
                     <img src="../../../assets/img/ai_loading.png" alt="ai가 켜지길 기다리는중" />
                 </Modal>
 
-                {/* <Modal visible={isModalOpen.correctModal} style={modalStyle}> */}
                 <Modal visible={isModalOpen.correctModal && isModalOpen.modalVisible} style={modalStyle} onClose={closeModal}>
                     <img src="../../../assets/img/correct_answer.png" alt="로그인 유저가 정답인 경우!" />
 
@@ -241,7 +241,7 @@ function Learning() {
                 <Modal visible={isModalOpen.waitingAnswerModal} style={modalStyle} onClose={closeModal}>
                     {!socketAnswer && <img src="../../../assets/img/grading.png" alt="채점중인 로봇" />}
                 </Modal>
-            </>
+            </> */}
 
             {isLoading && <Loading />}
 
@@ -255,10 +255,13 @@ function Learning() {
                                 <video style={{ width: '100%' }} src={`http://localhost:4000/api/video/detail?id=${Video.fileName}`} controls></video>
                                 {/* <img src="../assets/img/bg-masthead.jpg" style={{ width: 200, height: 200 }}></img> */}
                             </div>
-                            <p className="panel-footer">
-                              {/* 단어&수형 설명 화면 */}
-                              단어 :{Video.mean}<br />
+                            {/* 단어&수형 설명 화면 */}
+                            <p className="panel-footer" >
+                              단어 :{Video.mean}</p>
+                            <p className="panel-footer" >
                               수형 설명 :{Video.description}</p>
+                            <p className="panel-footer">
+                              출처: 국립 국어원 한국 수어 사전</p>
                         </article>
                     </div>
                     <div className="column">

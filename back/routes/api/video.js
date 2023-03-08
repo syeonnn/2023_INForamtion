@@ -27,7 +27,8 @@ router.get("/getVideos", (req, res) => {
 
 // DB에서 한 비디오 정보 불러오기
 router.post("/getVideo", (req, res) => {
-    Video.findOne({ "_id" : req.body.videoId })
+    // Video.findOne({ "_id" : req.body.videoId })
+    Video.findOne({ "fileName" : req.body.videoId })
         .exec((err, video) => {
             if(err) return res.status(400).send(err);
 
