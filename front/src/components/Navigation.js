@@ -8,7 +8,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export default function Navigation() {
-
     const [Videos, setVideos] = useState([]);
 
     useEffect(() => {
@@ -23,19 +22,15 @@ export default function Navigation() {
             })
     }, []);
 
-    // 카테고리 링크 생성
-    // 문제) 저장된 video 정보 마다 한번식 불려서  카테고리 링크가 단어 개수만큼 생김
-    // 우리가 원하는건 카테고리당 한번만 생성되도록 하는 것... 어떡해야하지?
-    const renderCategoryLink = Videos.map((video, index) => {
-        console.log("renderCategoryLink: ", video);
-        return <Link className="nav-link collapsed" data-bs-toggle="collapse" to={`#collapse${video.category}`} aria-expanded="false" aria-controls={`collapse${video.category}`}>
-            {video.category}<div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div></Link>
-    });
+    // const renderCategoryLink = Videos.map((video, index) => {
+    //     console.log("renderCategoryLink: ", video);
+    //     return <Link className="nav-link collapsed" data-bs-toggle="collapse" to={`#collapse${video.category}`} aria-expanded="false" aria-controls={`collapse${video.category}`}>
+    //         {video.category}<div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div></Link>
+    // });
 
     const renderWordLink = Videos.map((video, index) => {
-        console.log("renderWordLink: ", video); 
-        // var toName = video.fileName.split(".")[0];
-        // return <NavLink key={index} to={`/learning/${video._id}`} className="nav-link">{video.mean}</NavLink>
+        // console.log("renderWordLink: ", video); 
+        
         return <NavLink key={index} to={`/learning/${video.fileName}`} className="nav-link">{video.mean}</NavLink>
     });
 

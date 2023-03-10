@@ -6,7 +6,7 @@ import Loading from "./Loading";
 import Modal from "./Modal";
 
 import axios from 'axios';
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 
 import {
@@ -30,7 +30,6 @@ const modalStyle = {
 
 
 function Learning() {
-
   const [isLoading, setIsLoading] = useState(true);
   const [socketAnswer, setSocketAnswer] = useState("");
   const [isModalOpen, setIsModalOpen] = useState({
@@ -40,8 +39,6 @@ function Learning() {
     wrongModal: false,
     modalVisible: false
   });
-  const { videoId } = useParams();
-  const [ Video, setVideo ] = useState([]);
 
   const [curSelectedButton, setCurSelectedButton] =
     useState({
@@ -52,6 +49,10 @@ function Learning() {
   const lazyStartTimerId = useRef(null);
   //const [isLogin] = useAtom(loginAtom);
   //const [, setUser] = useAtom(userAtom);
+
+  const { videoId } = useParams();
+  const [ Video, setVideo ] = useState([]);
+  const navigate = useNavigate();  
  
   const handleClickButton = () => {
     setIsModalOpen((cur) => {
@@ -107,9 +108,10 @@ function Learning() {
   };
 
   const getVideos = async () => {
-    // 서버와 연결해서 학습용 비디오 불러옴
+    // videoId 가  null인 경우 -> learning/:id=?? 로 redirect 를 해줘야함 
+
     axios.post('/api/video/getVideo', {
-        videoId: videoId
+      videoId: videoId
     })
     .then((res) => {
         if (res.data.success) {
@@ -150,9 +152,24 @@ function Learning() {
   };
 
   useEffect(() => {
-    // 비디오 불러오기
-    getVideos();
+    // video Id 가 undefined 일 경우 -> learning/hi 로 리다이렉트
+    // 문제) 하드 코딩, 새로고침을 하지 않으면 영상 업로드가 안됨
+    // if (!videoId) {
+    //   console.log("video id is Null");
+    //   return navigate("/learning/hi");
+    // } else {
+    //   console.log("video id is not Null");
+    //   getVideos();
+   
+    //   return () => {
+    //     if (lazyStartTimerId !== null) {
+    //       clearTimeout(lazyStartTimerId.current);
+    //     }
+    //   };
+    // }
 
+    getVideos();
+   
     return () => {
       if (lazyStartTimerId !== null) {
         clearTimeout(lazyStartTimerId.current);
@@ -161,149 +178,149 @@ function Learning() {
   }, []);
 
 
-    return (
-        <div className="learningspace">
-          {/* 임시로 모달창 생략함 */}
-            {/* <>
-                <Modal visible={isModalOpen.loadingModal && isModalOpen.modalVisible} style={modalStyle} onClose={closeModal}>
-                    <img src="../../../assets/img/ai_loading.png" alt="ai가 켜지길 기다리는중" />
-                </Modal>
+  return (
+    <div className="learningspace">
+      <>
+            <Modal visible={isModalOpen.loadingModal && isModalOpen.modalVisible} style={modalStyle} onClose={closeModal}>
+                <img src="../../../assets/img/ai_loading.png" alt="ai가 켜지길 기다리는중" />
+            </Modal>
 
-                <Modal visible={isModalOpen.correctModal && isModalOpen.modalVisible} style={modalStyle} onClose={closeModal}>
-                    <img src="../../../assets/img/correct_answer.png" alt="로그인 유저가 정답인 경우!" />
+            <Modal visible={isModalOpen.correctModal && isModalOpen.modalVisible} style={modalStyle} onClose={closeModal}>
+                <img src="../../../assets/img/correct_answer.png" alt="로그인 유저가 정답인 경우!" />
 
-                    <ModalButtonContainer>
-                        <ModalButton
-                            onClick={() => {
-                                setIsModalOpen((cur) => {
-                                    return {
-                                        ...cur,
-                                        correctModal: false,
-                                        modalVisible: false
-                                    };
-                                });
-                                setSocketAnswer(undefined);
-                            }}
-                        >
-                            닫기
-                        </ModalButton>
-                        <ModalButton
-                            onClick={() => {
-                                setIsModalOpen((cur) => {
-                                    return {
-                                        ...cur,
-                                        correctModal: false,
-                                        modalVisible: false
-                                    };
-                                });
-                                setSocketAnswer(undefined);
-                                handleClickButton();
-                            }}
-                        >
-                            다시하기
-                        </ModalButton>
-                    </ModalButtonContainer>
-                </Modal>
+                <ModalButtonContainer>
+                    <ModalButton
+                        onClick={() => {
+                            setIsModalOpen((cur) => {
+                                return {
+                                    ...cur,
+                                    correctModal: false,
+                                    modalVisible: false
+                                };
+                            });
+                            setSocketAnswer(undefined);
+                        }}
+                    >
+                        닫기
+                    </ModalButton>
+                    <ModalButton
+                        onClick={() => {
+                            setIsModalOpen((cur) => {
+                                return {
+                                    ...cur,
+                                    correctModal: false,
+                                    modalVisible: false
+                                };
+                            });
+                            setSocketAnswer(undefined);
+                            handleClickButton();
+                        }}
+                    >
+                        다시하기
+                    </ModalButton>
+                </ModalButtonContainer>
+            </Modal>
 
-                <Modal visible={isModalOpen.wrongModal} style={modalStyle} onClose={closeModal}>
-                    <img src="../../../assets/img/wrong_answer.png" alt="오답인 경우!" />
-                    <div className="ModalButtonContainer">
-                        <ModalButton
-                            onClick={() => {
-                                setIsModalOpen((cur) => {
-                                    return {
-                                        ...cur,
-                                        wrongModal: false,
-                                    };
-                                });
-                                setSocketAnswer(undefined);
-                            }}
-                        >
-                            닫기
-                        </ModalButton>
-                        <ModalButton
-                            onClick={() => {
-                                setIsModalOpen((cur) => {
-                                    return {
-                                        ...cur,
-                                        wrongModal: false,
-                                    };
-                                });
-                                setSocketAnswer(undefined);
-                                handleClickButton();
-                            }}
-                        >
-                            다시하기
-                        </ModalButton>
-                    </div>
-                </Modal>
+            <Modal visible={isModalOpen.wrongModal} style={modalStyle} onClose={closeModal}>
+                <img src="../../../assets/img/wrong_answer.png" alt="오답인 경우!" />
+                <div className="ModalButtonContainer">
+                    <ModalButton
+                        onClick={() => {
+                            setIsModalOpen((cur) => {
+                                return {
+                                    ...cur,
+                                    wrongModal: false,
+                                };
+                            });
+                            setSocketAnswer(undefined);
+                        }}
+                    >
+                        닫기
+                    </ModalButton>
+                    <ModalButton
+                        onClick={() => {
+                            setIsModalOpen((cur) => {
+                                return {
+                                    ...cur,
+                                    wrongModal: false,
+                                };
+                            });
+                            setSocketAnswer(undefined);
+                            handleClickButton();
+                        }}
+                    >
+                        다시하기
+                    </ModalButton>
+                </div>
+            </Modal>
 
-                <Modal visible={isModalOpen.waitingAnswerModal} style={modalStyle} onClose={closeModal}>
-                    {!socketAnswer && <img src="../../../assets/img/grading.png" alt="채점중인 로봇" />}
-                </Modal>
-            </> */}
+            <Modal visible={isModalOpen.waitingAnswerModal} style={modalStyle} onClose={closeModal}>
+                {!socketAnswer && <img src="../../../assets/img/grading.png" alt="채점중인 로봇" />}
+            </Modal>
+        </>
 
-            {isLoading && <Loading />}
+        {isLoading && <Loading />}
 
-            <div className="contents">
-                <div className="columns">
-                    <div className="column">
-                        <article className="panel">
-                            <p className="panel-heading">학습할 단어 넣을 자리</p>
-                            <div className="panel-block">
-                                {/* 비디오 출력 화면 */} 
-                                <video style={{ width: '100%' }} src={`http://localhost:4000/api/video/detail?id=${Video.fileName}`} controls></video>
-                                {/* <img src="../assets/img/bg-masthead.jpg" style={{ width: 200, height: 200 }}></img> */}
-                            </div>
-                            {/* 단어&수형 설명 화면 */}
-                            <p className="panel-footer" >
-                              단어 :{Video.mean}</p>
-                            <p className="panel-footer" >
-                              수형 설명 :{Video.description}</p>
-                            <p className="panel-footer">
-                              출처: 국립 국어원 한국 수어 사전</p>
-                        </article>
-                    </div>
-                    <div className="column">
-                        <article className="panel" style={{ backgroundColor: "#D3D3D3", borderRadius: "0.8rem" }}>
-                            <div className="panel-block">
+        <div className="contents">
+            <div className="columns">
+                <div className="column">
+                    <article className="panel">
+                        <p className="panel-heading">학습할 단어 넣을 자리</p>
+                        <div className="panel-block">
+                            {/* 비디오 출력 화면 */} 
+                            <video style={{ width: '100%' }} src={`http://localhost:4000/api/video/detail?id=${Video.fileName}`} controls></video>
+                            {/* <img src="../assets/img/bg-masthead.jpg" style={{ width: 200, height: 200 }}></img> */}
+                        </div>
+                        {/* 단어&수형 설명 화면 */}
+                        <p className="panel-footer" >
+                          단어 :{Video.mean}</p>
+                        <p className="panel-footer" >
+                          수형 설명 :{Video.description}</p>
+                        <p className="panel-footer">
+                          출처: 국립 국어원 한국 수어 사전</p>
+                    </article>
+                </div>
+                <div className="column">
+                    <article className="panel" style={{ backgroundColor: "#D3D3D3", borderRadius: "0.8rem" }}>
+                        <div className="panel-block">
 
-                                <MediaPipeWebCam
-                                    //cameraOn={cameraOn}
-                                    //handleOffMediapipe={handleOffMediapipe}
-                                    //isCameraSettingOn={isCameraSettingOn}
-                                    handleSetSocketAnswer={handleSetSocketAnswer}
-                                    openModal={openModal}
-                                />
-                                <StartButton
-                                    onClick={handleClickButton}
-                                    //cameraOn={cameraOn}
-                                    data-tip="game-Guide"
-                                    data-for="game-Guide"
-                                >
+                            <MediaPipeWebCam
+                                //cameraOn={cameraOn}
+                                //handleOffMediapipe={handleOffMediapipe}
+                                //isCameraSettingOn={isCameraSettingOn}
+                                handleSetSocketAnswer={handleSetSocketAnswer}
+                                openModal={openModal}
+                            />
+                            <StartButton
+                                onClick={handleClickButton}
+                                //cameraOn={cameraOn}
+                                data-tip="game-Guide"
+                                data-for="game-Guide"
+                            >
 
-                                    <Tooltip id="game-Guide">
-                                        <ToolTipContent>
-                                            <img
-                                                src="../../../assets/img/playGuide.png"
-                                                alt="playGuide"
-                                                width="300"
-                                            ></img>
-                                            <p style={{ textAlign: "center", fontSize: "24px" }}>
-                                                그림처럼 얼굴과 어깨와 손이 <br />
-                                                함께 나오도록 자세를 잡아주세요
-                                            </p>
-                                        </ToolTipContent>
-                                    </Tooltip>
-                                </StartButton>
+                                <Tooltip id="game-Guide">
+                                    <ToolTipContent>
+                                        <img
+                                            src="../../../assets/img/playGuide.png"
+                                            alt="playGuide"
+                                            width="300"
+                                        ></img>
+                                        <p style={{ textAlign: "center", fontSize: "24px" }}>
+                                            그림처럼 얼굴과 어깨와 손이 <br />
+                                            함께 나오도록 자세를 잡아주세요
+                                        </p>
+                                    </ToolTipContent>
+                                </Tooltip>
+                            </StartButton>
 
-                            </div>
-                        </article>
-                    </div>
+                        </div>
+                    </article>
                 </div>
             </div>
-
         </div>
+
+      </div>
     )
 }
+
 export default Learning;
