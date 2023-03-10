@@ -45,8 +45,7 @@ UserSchema.pre("save", function (next) {
                 next();
             });
         });
-    }
-    else next();
+    } else next();
 });
 
 UserSchema.methods.comparePassword = function (plainPassword, cb) {

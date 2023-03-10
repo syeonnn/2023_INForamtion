@@ -1,3 +1,5 @@
+// 카메라 코드 전부 추가 cameraon
+
 import React, { useRef, useEffect, useState } from "react";
 import Webcam from "react-webcam";
 import * as h from "@mediapipe/holistic";
@@ -50,23 +52,26 @@ function MediaPipeWebcam({
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
 
-    function answer(props){
-        return(props)
-    }
-    function coordinate(props){
-        return(props)
-    }
+    const socket = io();
+
+
+    // function answer(props){
+    //     return(props)
+    // }
+    // function coordinate(props){
+    //     return(props)
+    // }
         
-    const [socket, setSocket] = useState(
-        () => {
-            const data = answer();
-            return data;
-        },
-        () => {
-            const hands = coordinate();
-            return hands;
-        }
-    );
+    //const [socket, setSocket] = useState(
+        // () => {
+        //     const data = answer();
+        //     return data;
+        // },
+        // () => {
+        //     const hands = coordinate();
+        //     return hands;
+        // }
+    //);
     const [mediapipeData, setMediapipeData] = useState([{
         poseLandmarks: h.NormalizedLandmarkList,
         leftHandLandmarks: h.NormalizedLandmarkList,
@@ -137,40 +142,56 @@ function MediaPipeWebcam({
             { color: '#FF0000', lineWidth: 2 });
     }
 
-    const startRef = useRef();
-    const middleRef = useRef();
-    const endRef = useRef();
+    //const startRef = useRef();
+    //const middleRef = useRef();
+    //const endRef = useRef();
 
     useEffect(() => {
         if (mediapipeData.length === 50) {
-          startRef.current = new Date();
+          //startRef.current = new Date();
           // 50개가 다 차면 정답을 기다리는 모달을 띄우기 위함
           openModal && openModal();
-          socket?.emit("coordinate", mediapipeData);
+          socket.emit("coordinate", mediapipeData);
           console.log("emiting...");
-          middleRef.current = new Date();
+          //middleRef.current = new Date();
     
-          // handleOffMediapipe();
+          handleOffMediapipe();
         }
       }, [mediapipeData, openModal]);
 
       useEffect(() => {
-        holistic.onResults(onResults);
-    });
+        if (cameraOn) {
+            holistic.onResults(onResults);
+          } else {
+            holistic.onResults(() => undefined);
+            setMediapipeData([]);
+          }
+        }, [cameraOn]);
 
-    /*useEffect(() => {
-        if (!isLoading) {
+    useEffect(() => {
+        if (!Loading) {
           isCameraSettingOn();
         }
-      }, [isLoading]);*/
+      }, [Loading]);
 
     useEffect(() => {
 
         let camera = cam.Camera;
-        //let isCanceled = false;
+        let isCanceled = false;
+
+        if (
+            typeof webcamRef.current !== "undefined" &&
+            webcamRef.current !== null
+          ) {
+            if (!webcamRef.current?.video) {
+              return;
+            }
 
         camera = new cam.Camera(webcamRef.current?.video, {
             onFrame: async () => {
+                if (!webcamRef.current?.video || isCanceled) {
+                    return;
+                }
                 await holistic.send({ image: webcamRef.current?.video });
                 if(Loading)
                     setLoading(true);
@@ -178,35 +199,44 @@ function MediaPipeWebcam({
             //width: 640,
             //height: 480,
         });
-
         camera.start();
+    }
+    return () => {
+        isCanceled = true;
+  
+        holistic.onResults(() => undefined);
+  
+        camera?.stop();
+      };
     }, []);
 
     useEffect(() => {
-        setSocket(io({ path: `${flaskUrl}/socket.io` }));
+        socket.connect('http://localhost:5005',
+        { path: `${flaskUrl}/socket.io` });
+        
         return () => {
-            console.log("disconnect socket");
             socket?.disconnect();
+            console.log("disconnect socket");
         };
     }, []);
     
-
     useEffect(() => {
-       
-
         if (socket) {
-            console.log("got socket");
-          const func = (data) => {
-            endRef.current = new Date();
-            // 소켓 답변 매개변수로 넘겨주는 함수
-            handleSetSocketAnswer && handleSetSocketAnswer(data);
-          };
+            console.log("Here's socket.");  
+            //const th = 1;
+            //handleSetSocketAnswer && handleSetSocketAnswer(th);
+          
           // 소켓 답변 얻어오는 함수
-          socket.on("answer", func);
-          console.log("got answer");
-    
+          socket.on("answer", (data)=>{
+            handleSetSocketAnswer && handleSetSocketAnswer(data);
+            console.log("got answer");
+          });
+              
           return () => {
-            socket.off("answer", func);
+            socket.off("answer", (data)=>{
+                console.log("remove answer in socket");
+            });
+            
           };
         }
       }, [socket, handleSetSocketAnswer]);
