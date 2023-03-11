@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import MediaPipeWebCam from "./MediaPipeWebcam";
 import { io } from "socket.io-client";
-import { Tooltip } from 'react-tooltip'
+import { Tooltip } from 'react-tooltip';
 import Loading from "./Loading";
 import Modal from "./Modal";
-
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from 'react-router-dom'
 
 import {
   StartButton,
@@ -29,10 +28,6 @@ const modalStyle = {
 };
 
 function Learning() {
-  const [ Video, setVideo ] = useState([]);
-  const { videoId } = useParams();
-  const video_id = { videoId };
-
   //const { pathname } = useLocation();
   const [isLearningPage, setIsLearningPage] = useState(true);
   const [cameraOn, setCameraOn] = useState(false);
@@ -46,12 +41,20 @@ function Learning() {
   });
   const [curSelected, setCurSelected] = useState("");
 
+  const [curSelectedButton, setCurSelectedButton] =
+    useState({
+      word: "",
+      index: 0,
+  });
+
   const lazyStartTimerId = useRef(null);
   //const [isLogin] = useAtom(loginAtom);
   //const [, setUser] = useAtom(userAtom);
 
-  //const handlesetVideo...
-
+  const { videoId } = useParams();
+  const [ Video, setVideo ] = useState([]);
+  const navigate = useNavigate();  
+ 
   const handleClickButton = () => {
     setIsModalOpen((cur) => {
       return {
@@ -104,19 +107,19 @@ function Learning() {
   };
 
   const getVideos = async () => {
-    // 서버와 연결해서 학습용 비디오 불러옴
+    // videoId 가  null인 경우 -> learning/:id=?? 로 redirect 를 해줘야함 
+
     axios.post('/api/video/getVideo', {
-      video_id: videoId
+      videoId: videoId
     })
-      .then((res) => {
+    .then((res) => {
         if (res.data.success) {
-          console.log(res.data.video);
-          setVideo(res.data.video);
+            console.log(res.data.video);
+            setVideo(res.data.video);
         } else {
-          alert('Failed to get video Info');
+            alert('Failed to get video Info');
         }
-      });
-      const obj = JSON.parse(Video);
+    });
   };
 
   const handleOffMediapipe = () => {
@@ -141,23 +144,23 @@ function Learning() {
   //   setCurSelected(video_id)
   // }
 
-  useEffect(() => {
-    try {
-      //const localIsAlphabet = pathname.includes("alphabet") === true;
-      //getVideos(localIsAlphabet);
-      // setIsLearningPage(true);
-      //   setCurSelected({
-      //     word: "hi",
-      //     index: 0,
-      //   });
+  // useEffect(() => {
+  //   try {
+  //     //const localIsAlphabet = pathname.includes("alphabet") === true;
+  //     //getVideos(localIsAlphabet);
+  //     // setIsLearningPage(true);
+  //     //   setCurSelected({
+  //     //     word: "hi",
+  //     //     index: 0,
+  //     //   });
 
       
-      setCurSelected(video_id)
-      console.log({ video_id });
-    } catch (e) {
-      throw new Error(e);
-    }
-  }, []);
+  //     setCurSelected(video_id)
+  //     console.log({ video_id });
+  //   } catch (e) {
+  //     throw new Error(e);
+  //   }
+  // }, []);
 
 
   const isCameraSettingOn = () => {
@@ -165,8 +168,25 @@ function Learning() {
     setIsLoading(false);
   };
 
+  
+
   useEffect(() => {
-    // 비디오 불러오기
+    // video Id 가 undefined 일 경우 -> learning/hi 로 리다이렉트
+    // 문제) 하드 코딩, 새로고침을 하지 않으면 영상 업로드가 안됨
+    // if (!videoId) {
+    //   console.log("video id is Null");
+    //   return navigate("/learning/hi");
+    // } else {
+    //   console.log("video id is not Null");
+    //   getVideos();
+   
+    //   return () => {
+    //     if (lazyStartTimerId !== null) {
+    //       clearTimeout(lazyStartTimerId.current);
+    //     }
+    //   };
+    // }
+
     getVideos();
 
     return () => {
@@ -175,6 +195,7 @@ function Learning() {
       }
     };
   }, []);
+
 
   return (
 
@@ -271,13 +292,18 @@ function Learning() {
                 단어 :{Video.mean}
               </p>
               <div className="panel-block">
-              <video src={`http://localhost:4000/api/video/detail?id=${Video.fileName}`} controls></video>              
+                  {/* 비디오 출력 화면 */} 
+                  <video style={{ width: '100%' }} src={`http://localhost:4000/api/video/detail?id=${Video.fileName}`} controls></video>
+                  {/* <img src="../assets/img/bg-masthead.jpg" style={{ width: 200, height: 200 }}></img> */}
               </div>
-              <p className="panel-footer">
-                수형 설명 :{Video.description}<br />
-                출처: 국립 국어원 한국 수어 사전
-              </p>
-            </article>
+                  {/* 단어&수형 설명 화면 */}
+                  <p className="panel-footer" >
+                    단어 :{Video.mean}</p>
+                  <p className="panel-footer" >
+                    수형 설명 :{Video.description}</p>
+                  <p className="panel-footer">
+                    출처: 국립 국어원 한국 수어 사전</p>
+              </article>
           </div>
           <div className="column">
             <article className="panel" style={{ backgroundColor: "#11264f", borderRadius: "0.8rem" }}>
@@ -304,7 +330,8 @@ function Learning() {
         </div>
       </div>
 
-    </div>
-  )
+        </div>
+    )
 }
+
 export default Learning;

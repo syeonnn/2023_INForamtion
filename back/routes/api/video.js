@@ -15,8 +15,6 @@ router.get("/getVideos", (req, res) => {
     Video.find()
         .exec((err, videos) => {
             if(err) return res.status(400).send(err);
-            
-            // console.log(videos);
 
             res.status(200).json({ 
                 success: true, 
@@ -27,12 +25,11 @@ router.get("/getVideos", (req, res) => {
 
 // DB에서 한 비디오 정보 불러오기
 router.post("/getVideo", (req, res) => {
-    // Video.findOne({ "_id" : req.body.videoId })
-    Video.findOne({ "fileName" : req.body.videoId })
+    // Video.findOne({ "_id" : req.body.videoId }) // _id 로 찾기 
+    const fileName = req.body.videoId + ".MOV";
+    Video.findOne({ "fileName" : fileName }) // fileName 으로 찾기
         .exec((err, video) => {
             if(err) return res.status(400).send(err);
-
-            // console.log(video);
             
             res.status(200).json({ 
                 success: true, 
@@ -43,8 +40,7 @@ router.post("/getVideo", (req, res) => {
 
 router.get("/detail", (req, res) => {
     console.log(req.query.id);
-    const filePath = path.resolve("assets", req.query.id) + ".MOV";
-    // `../../assets/${req.query.id}`; // 파일 저장 경로 환경 변수 설정 필요
+    const filePath = path.resolve("assets", req.query.id);
 
     const stat = fs.statSync(filePath);
     const fileSize = stat.size;

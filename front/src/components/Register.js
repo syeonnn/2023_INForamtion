@@ -55,7 +55,7 @@ export default function Register() {
             ...inputs,
             [name]: value,
         });
-    }
+    };
 
     const onReset = () => {
         const resetInputs = {       
