@@ -10,7 +10,18 @@ export const StartButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: ${(props) => (props.cameraOn ? "auto" : "pointer")};
   transition: opacity 0.5s ease;
+  opacity: ${(props) => (props.cameraOn ? 0 : 1)};
+`;
+
+export const StartTriangle = styled.div`
+  border-bottom: 20px solid transparent;
+  border-top: 20px solid transparent;
+  border-left: 30px solid white;
+  transition: opacity 0.5s ease;
+  opacity: ${(props) => (props.cameraOn ? 0 : 1)};
 `;
 
 

@@ -15,6 +15,11 @@ router.get("/getVideos", (req, res) => {
     Video.find()
         .exec((err, videos) => {
             if(err) return res.status(400).send(err);
+<<<<<<< HEAD
+=======
+            
+            // console.log(videos);
+>>>>>>> 2b7221722118cddd2ff88ea7470a94eeb5aff815
 
             res.status(200).json({ 
                 success: true, 
@@ -25,10 +30,19 @@ router.get("/getVideos", (req, res) => {
 
 // DB에서 한 비디오 정보 불러오기
 router.post("/getVideo", (req, res) => {
+<<<<<<< HEAD
     // Video.findOne({ "_id" : req.body.videoId }) // _id 로 찾기 
     Video.findOne({ "fileName" : req.body.videoId }) // fileName 으로 찾기
         .exec((err, video) => {
             if(err) return res.status(400).send(err);
+=======
+    // Video.findOne({ "_id" : req.body.videoId })
+    Video.findOne({ "fileName" : req.body.videoId })
+        .exec((err, video) => {
+            if(err) return res.status(400).send(err);
+
+            // console.log(video);
+>>>>>>> 2b7221722118cddd2ff88ea7470a94eeb5aff815
             
             res.status(200).json({ 
                 success: true, 

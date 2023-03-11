@@ -5,9 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavLink, Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 export default function Navigation() {
+
     const [Videos, setVideos] = useState([]);
 
     useEffect(() => {
@@ -17,16 +18,11 @@ export default function Navigation() {
                     console.log(res.data.videos);
                     setVideos(res.data.videos);
                 } else {
-                    alert('Failed to get Videos');
+                    alert('Failed to get Videos')
                 }
             })
     }, []);
 
-    // const renderCategoryLink = Videos.map((video, index) => {
-    //     console.log("renderCategoryLink: ", video);
-    //     return <Link className="nav-link collapsed" data-bs-toggle="collapse" to={`#collapse${video.category}`} aria-expanded="false" aria-controls={`collapse${video.category}`}>
-    //         {video.category}<div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div></Link>
-    // });
 
     const renderWordLink = Videos.map((video, index) => {
         // console.log("renderWordLink: ", video); 

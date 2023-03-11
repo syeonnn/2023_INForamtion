@@ -8,7 +8,7 @@ import Learning from './components/Learning/Learning';
 //import Quiz from './components/Quiz';
 import Register from './components/Register';
 import Login from './components/Login';
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useParams } from 'react-router-dom'
 import React, { useEffect, useState } from "react";
 
 
