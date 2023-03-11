@@ -144,23 +144,23 @@ function Learning() {
   //   setCurSelected(video_id)
   // }
 
-  useEffect(() => {
-    try {
-      //const localIsAlphabet = pathname.includes("alphabet") === true;
-      //getVideos(localIsAlphabet);
-      // setIsLearningPage(true);
-      //   setCurSelected({
-      //     word: "hi",
-      //     index: 0,
-      //   });
+  // useEffect(() => {
+  //   try {
+  //     //const localIsAlphabet = pathname.includes("alphabet") === true;
+  //     //getVideos(localIsAlphabet);
+  //     // setIsLearningPage(true);
+  //     //   setCurSelected({
+  //     //     word: "hi",
+  //     //     index: 0,
+  //     //   });
 
       
-      setCurSelected(video_id)
-      console.log({ video_id });
-    } catch (e) {
-      throw new Error(e);
-    }
-  }, []);
+  //     setCurSelected(video_id)
+  //     console.log({ video_id });
+  //   } catch (e) {
+  //     throw new Error(e);
+  //   }
+  // }, []);
 
 
   const isCameraSettingOn = () => {

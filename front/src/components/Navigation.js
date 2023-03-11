@@ -26,8 +26,9 @@ export default function Navigation() {
 
     const renderWordLink = Videos.map((video, index) => {
         // console.log("renderWordLink: ", video); 
+        const fileName = video.fileName.split('.')[0];
         
-        return <NavLink key={index} to={`/learning/${video.fileName}`} className="nav-link">{video.mean}</NavLink>
+        return <NavLink key={index} to={`/learning/${fileName}`} className="nav-link">{video.mean}</NavLink>
     });
 
     return (

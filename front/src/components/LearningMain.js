@@ -19,8 +19,10 @@ export default function LearningMain(props) {
     }, []);
 
     const renderWords = Videos.map((video, index) => {
+        const fileName = video.fileName.split(".")[0];
+
         return <div style={{ position: "relative" }}>
-            <a href={`/learning/${video.fileName}`} id="renderWord">
+            <a href={`/learning/${fileName}`} id="renderWord">
                 <p>{video.mean}</p>
             {/* <img  style={{ width: '100%' }} alt="thumbnail" src={`http://localhost:5000/${video.thumbnail}`} /> */}
             </a>
