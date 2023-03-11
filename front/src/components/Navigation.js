@@ -28,8 +28,13 @@ export default function Navigation() {
         // console.log("renderWordLink: ", video); 
         const fileName = video.fileName.split('.')[0];
         
-        return <NavLink key={index} to={`/learning/${fileName}`} className="nav-link">{video.mean}</NavLink>
-    });
+        return (
+        <nav className="sb-sidenav-menu-nested nav">
+           <NavLink key={index} to={`/learning/${fileName}`} className="nav-link">{video.mean}</NavLink>
+        </nav>
+        )
+    
+});
 
     return (
 
@@ -45,10 +50,8 @@ export default function Navigation() {
                         <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fas fa-user fa-fw"></i></Link>
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li className="dropdown-item"><Link to="/login" className="nav-link">로그인</Link></li>
-                            <li className="dropdown-item"><NavLink to="/register" className="nav-link">회원가입</NavLink></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li className="dropdown-item"><NavLink to="/my-history" className="nav-link">학습기록</NavLink></li>
-
+                            <li className="dropdown-item"><NavLink to="/register" className="nav-link">회원가입</NavLink></li>
                         </ul>
                     </li>
                 </ul>
@@ -128,10 +131,10 @@ export default function Navigation() {
                                             </nav>
                                         </div> */}
 
-                                <Link to="/quiz" className="nav-link">
+                                {/*<Link to="/quiz" className="nav-link">
                                     <div className="sb-nav-link-icon"><i className="fa-solid fa-check"></i></div>
                                     퀴즈
-                                </Link>
+                                    </Link>*/}
 
                             </div>
                         </div>

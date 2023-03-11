@@ -202,11 +202,13 @@ function Learning() {
     <div className="learningspace">
       <>
         <Modal visible={isModalOpen.loadingModal} style={modalStyle}>
-          <img src="../../../assets/img/ai_loading.png" alt="ai가 켜지길 기다리는중" />
+          <h3 className="text-primary fw-bold mb-4">카메라를 찾는 중···</h3>
+          <img src="../../../assets/img/ai_loading.png" alt="ai가 켜지길 기다리는중" width="240px" />
         </Modal>
 
         <Modal visible={isModalOpen.correctModal} style={modalStyle}>
-          <img src="../../../assets/img/correct_answer.png" alt="정답인 경우!" />
+          <h3 className="text-dark fw-bold mb-3">정답입니다!</h3>
+          <img src="../../../assets/img/correct_answer.jpg" alt="정답인 경우!" width="260px" />
 
           <ModalButtonContainer>
             <ModalButton
@@ -240,7 +242,8 @@ function Learning() {
         </Modal>
 
         <Modal visible={isModalOpen.wrongModal} style={modalStyle}>
-          <img src="../../../assets/img/wrong_answer.png" alt="오답인 경우!" />
+          <h3 className="text-dark fw-bold mb-3">다시 한 번 해보세요.</h3>
+          <img src="../../../assets/img/wrong_answer.jpg" alt="오답인 경우!" width="260px"/>
           <div className="ModalButtonContainer">
             <ModalButton
               onClick={() => {
@@ -273,7 +276,8 @@ function Learning() {
         </Modal>
 
         <Modal visible={isModalOpen.waitingAnswerModal} style={modalStyle}>
-          {!socketAnswer && <img src="../../../assets/img/grading.png" alt="채점중인 로봇" />}
+          <h3 className="text-success fw-bold mb-3">채점 중입니다!</h3>
+          {!socketAnswer && <img src="../../../assets/img/grading.jpg" alt="채점중인 로봇" width="340px"/>}
         </Modal>
       </>
 
@@ -302,9 +306,8 @@ function Learning() {
               </article>
           </div>
           <div className="column">
-            <article className="panel" style={{ backgroundColor: "#D3D3D3", borderRadius: "0.8rem" }}>
-              <div className="panel-block">
-
+            <article className="panel" style={{ backgroundColor: "#11264f", borderRadius: "0.8rem" }}>
+              <div className="panel-block-right" >
                 <MediaPipeWebCam
                   cameraOn={cameraOn}
                   handleOffMediapipe={handleOffMediapipe}
@@ -319,20 +322,6 @@ function Learning() {
                   data-for="game-Guide"
                 >
                   <StartTriangle cameraOn={cameraOn} />
-
-                  <Tooltip id="game-Guide">
-                    <ToolTipContent>
-                      <img
-                        src="../../../assets/img/playGuide.png"
-                        alt="playGuide"
-                        width="300"
-                      ></img>
-                      <p style={{ textAlign: "center", fontSize: "24px" }}>
-                        그림처럼 얼굴과 어깨와 손이 <br />
-                        함께 나오도록 자세를 잡아주세요
-                      </p>
-                    </ToolTipContent>
-                  </Tooltip>
                 </StartButton>
 
               </div>
