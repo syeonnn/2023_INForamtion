@@ -8,8 +8,8 @@ import Learning from './components/Learning/Learning';
 //import Quiz from './components/Quiz';
 import Register from './components/Register';
 import Login from './components/Login';
-import { Routes, Route, useParams } from 'react-router-dom'
-import React, { useEffect, useState } from "react";
+import { Routes, Route } from 'react-router-dom'
+import React from "react";
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
         <Route path="/learning/:videoId" element={<Learning />}></Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        
+    
       </Routes>
 
     </>
@@ -32,5 +32,3 @@ function App() {
 }
 
 export default App;
-
-//<Navigation />
