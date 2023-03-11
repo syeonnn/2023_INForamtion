@@ -253,12 +253,14 @@ function MediaPipeWebcam({
                     borderRadius: "0.8rem"
                 }}
             />
-            <canvas className="canvas" ref={canvasRef} style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                textAlign: "center",
-                zIndex: 9,
-                borderRadius: "0.8rem"
+            <canvas className="canvas" 
+                ref={canvasRef} 
+                style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    textAlign: "center",
+                    zIndex: 9,
+                    borderRadius: "0.8rem"
             }} />
         </div>
     )

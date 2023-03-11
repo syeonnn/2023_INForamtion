@@ -5678,7 +5678,7 @@ header.learningspace {
   max-width: 100%;
 }
 .contents{
-  margin:20px auto;
+  margin: 30px auto;
   padding-left: 10px;
   padding-right: 10px;
   position: relative;
@@ -5705,6 +5705,7 @@ header.learningspace {
     border-radius: 6px;
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
     font-size: 1rem;
+    height: 75vh;
  }
 .panel-heading{
   background-color: #0c63e4 !important;
@@ -5723,14 +5724,12 @@ header.learningspace {
   justify-content: center !important;
   padding: 0.5em 0.75em;
 }
-.panelblockRight{
+.panel-block-right{
   box-sizing: border-box;
-  background-color: #0dcaf0;
   display:flex;
   align-items: center;
   justify-content: center !important;
   padding: 0.5em 0.75em;
-  border-radius: 0.8rem;
 }
 .panel-footer{
   color: #000;
