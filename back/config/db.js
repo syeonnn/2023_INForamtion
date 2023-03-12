@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 const config = require("config");
 
 // URI
- const uri = config.get("mongoURI");
-//const uri = config.get("mongoURI_local");
+//  const uri = config.get("mongoURI");
+const uri = config.get("mongoURI_local");
+// const uri = config.get("mongoStartbucks");
 
 // Connect MongoDB
 const connectDB = async () => {

@@ -1,11 +1,9 @@
 import React from 'react'
 //import { Nav } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import { NavLink, Link } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from 'react'
+import { NavLink, Link } from 'react-router-dom';
 
 export default function Navigation() {
 
@@ -29,7 +27,7 @@ export default function Navigation() {
         const fileName = video.fileName.split('.')[0];
         
         return (
-        <nav className="sb-sidenav-menu-nested nav">
+        <nav className="sb-sidenav-menu-nested nav" id="sideNavVideo">
            <NavLink key={index} to={`/learning/${fileName}`} className="nav-link">{video.mean}</NavLink>
         </nav>
         )
