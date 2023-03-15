@@ -5,11 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
-// Redux 추가
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import promiseMiddleware from "redux-promise";
-import ReduxThunk from "redux-thunk";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
