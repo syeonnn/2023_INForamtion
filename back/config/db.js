@@ -4,8 +4,8 @@ const config = require("config");
 mongoose.set('strictQuery', true);
 
 // URI
-//  const uri = config.get("mongoURI");
-const uri = config.get("mongoURI_local");
+ const uri = config.get("mongoURI");
+// const uri = config.get("mongoURI_local");
 // const uri = config.get("mongoStartbucks"); // 스타벅스에서 테스트할 경우
 
 // Connect MongoDB
