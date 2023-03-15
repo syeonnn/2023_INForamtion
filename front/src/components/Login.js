@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-export default function Login() {
+function Login() {
 
     const [hidePassword, setHidePassword] = useState(true);
     const navigate = useNavigate();
@@ -11,15 +11,23 @@ export default function Login() {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
+        const headers = {
+            "Content-type": "application/json",
+        };
+        
         const email = e.target.email.value;
         const password = e.target.password.value;
         
-        await axios.post("http://localhost:4000/api/users/login", {
-            "email": email,
-            "password": password
-        }).then((res) => {
-            console.log(res.data);
-
+        await axios.post("http://localhost:4000/api/users/login", 
+            {
+                "email": email,
+                "password": password
+            },
+            headers
+        ).then((res) => {
+            // console.log("login post 결과: ", res.data);
+            console.log("login post 결과: ", res);
+            
             if (res.data.success) {
                 alert("로그인에 성공했습니다.");
                 return navigate("/");
@@ -68,3 +76,5 @@ export default function Login() {
 
     )
 }
+
+export default Login;

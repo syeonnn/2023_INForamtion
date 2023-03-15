@@ -11,14 +11,13 @@ function checkPassword (password, cpassword) {
     }
 };
 
-// @route  POST api/register
+// @route  POST api/users/register
 // @desc   Register user
 // @access Public
 router.post("/", async (req, res) => {
     const { name, email, password, cpassword } = req.body;
 
     try {
-        // 1. 비밀번호 확인
         const isValid = checkPassword(password, cpassword);
         if (!isValid) {
             return res.json({
@@ -28,9 +27,7 @@ router.post("/", async (req, res) => {
             });
         }
         
-        // 2. email 비교 -> 이미 존재하는지 확인
         var user = await User.findOne({ email });
-
         if (user) {
             return res.json({
                 title: "register",
@@ -39,14 +36,13 @@ router.post("/", async (req, res) => {
             });
         }
 
-        // 3. 새로운 user 생성
         user = new User({
             name,
             email, 
             password
         })
         
-        // 4. db에 user 저장
+        // db에 user 저장
         await user.save();
 
         /*

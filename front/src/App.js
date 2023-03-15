@@ -1,5 +1,8 @@
 //import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom'
+import React from "react";
+
 import Navigation from './components/Navigation';
 import Home from './components/Home';
 //import Footer from './components/Footer';
@@ -7,8 +10,6 @@ import Learning from './components/Learning/Learning';
 //import Quiz from './components/Quiz';
 import Register from './components/Register';
 import Login from './components/Login';
-import { Routes, Route } from 'react-router-dom'
-import React from "react";
 
 function App() {
 

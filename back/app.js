@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const config = require("./config/key");
+const session = require("express-session");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -12,10 +13,20 @@ const PORT = process.env.PORT || 4000;
 connectDB();
 
 // middlewares
-// app.use(express.urlencoded({ extended: true}));
-app.use(express.json({ extended: false })); // allow to get the data in req.body
+app.use(express.urlencoded({ extended: true}));
+// app.use(express.json({ extended: false })); // allow to get the data in req.body
+app.use(express.json()); // 시도1
 app.use(cookieParser());
 app.use(cors());
+// app.use(session({
+//     key: "loginData",
+//     secret: "secret",
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//         expires: 60*60*24,
+//     }
+// }));
 
 // Routes
 const registerRouter = require("./routes/api/register");
