@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
 
-function Login() {
+// Redux 추가
+import { loginUser } from "../_actions/user_actions";
+import { connect } from "react-redux";
+
+function Login(props) {
 
     const [hidePassword, setHidePassword] = useState(true);
     const navigate = useNavigate();
@@ -11,33 +13,20 @@ function Login() {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
-        const headers = {
-            "Content-type": "application/json",
-        };
+        const dataToSubmit = {
+            email: e.target.email.value,
+            password: e.target.password.value
+        }
+
         
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        
-        await axios.post("http://localhost:4000/api/users/login", 
-            {
-                "email": email,
-                "password": password
-            },
-            headers
-        ).then((res) => {
-            // console.log("login post 결과: ", res.data);
-            console.log("login post 결과: ", res);
-            
-            if (res.data.success) {
-                alert("로그인에 성공했습니다.");
-                return navigate("/");
-            } else {
-                alert(res.data.msg);
-                return navigate("/login");
-            }
-        }).catch((err) => {
-            console.error(err);
-            alert(err);
+        props.dispatch(loginUser(dataToSubmit))
+            .then(response => {
+                if (response.payload.loginSuccess) {
+                    alert("로그인에 성공했습니다.");
+                    navigate("/");
+                } else {
+                    alert("Failed to Log in, you can check your Email or Password");
+                }
         })
     }
 
@@ -53,7 +42,8 @@ function Login() {
                             <input
                                 name="email"
                                 placeholder="example@gmail.com"
-                                type="text"
+                                id="email"
+                                type="email"
                                 className="form_input"
                             /><br />
                         </div>
@@ -63,6 +53,7 @@ function Login() {
                             <input
                                 name="password"
                                 placeholder="비밀번호"
+                                id="password"
                                 type={hidePassword ? "password":"text"}
                                 className="form_input"
                             /><br />
@@ -77,4 +68,10 @@ function Login() {
     )
 }
 
-export default Login;
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(Login);

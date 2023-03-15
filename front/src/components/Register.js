@@ -1,71 +1,83 @@
-import { useState } from "react"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Register() {
+// Redux 추가
+import { connect } from "react-redux";
+import { registerUser } from "../_actions/user_actions";
+
+
+function Register(props) {
     const navigate = useNavigate();
     const [hidePassword, setHidePassword] = useState(true);
     
-    const [inputs, setInputs] = useState({  
-        name: '',
-        email: '',
-        password: '',
-        cpassword: ''
-    })
+    // const [inputs, setInputs] = useState({  
+    //     name: '',
+    //     email: '',
+    //     password: '',
+    //     cpassword: ''
+    // })
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         
-        const name = e.target.name.value;
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        const cpassword = e.target.cpassword.value;
+        const dataToSubmit = {
+            name : e.target.name.value,
+            email : e.target.email.value,
+            password : e.target.password.value,
+            cpassword : e.target.cpassword.value
+        }
 
-        // 마지막 입력만 inputs 에 남음 
-        // console.log(inputs);
-        // const name = inputs.name;
-        // const email = inputs.email;
-        // const password = inputs.password;
-        // const cpassword = inputs.cpassword;
+        props.dispatch(registerUser(dataToSubmit))
+            .then(response => {
+                if (response.payload.registerSuccess) {
+                    alert("회원가입에 성공했습니다.");
+                    navigate("/login");
+                } else {
+                    alert("Your attempt tot send data to DB was failed.");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
 
-        await axios.post("http://localhost:4000/api/register", {
-            "name": name,
-            "email": email,
-            "password": password,
-            "cpassword": cpassword
-        }).then((res) => {
-            console.log(res.data);
-            // 회원가입 성공
-            if (res.data.success) {
-                alert("회원가입이 완료되었습니다.");
-                return navigate("/login");
-            } else {
-                alert(res.data.msg);
-                return navigate("/register")
-            }
-        }).catch((err) => {
-            console.error(err);
-            alert(err);
-        });
-    };
+        // await axios.post("http://localhost:4000/api/register", {
+        //     "name": name,
+        //     "email": email,
+        //     "password": password,
+        //     "cpassword": cpassword
+        // }).then((res) => {
+        //     console.log(res.data);
+        //     // 회원가입 성공
+        //     if (res.data.success) {
+        //         alert("회원가입이 완료되었습니다.");
+        //         return navigate("/login");
+        //     } else {
+        //         alert(res.data.msg);
+        //         return navigate("/register")
+        //     }
+        // }).catch((err) => {
+        //     console.error(err);
+        //     alert(err);
+        // });
 
-    const onCahngeHandler = (e) => {
-        const { value, name } = e.target;
-        setInputs({
-            ...inputs,
-            [name]: value,
-        });
-    };
+    // const onCahngeHandler = (e) => {
+    //     const { value, name } = e.target;
+    //     setInputs({
+    //         ...inputs,
+    //         [name]: value,
+    //     });
+    // };
 
-    const onReset = () => {
-        const resetInputs = {       
-            name: '',
-            email: '',
-            password: '',
-            cpassword: ''
-        };
-        setInputs(resetInputs);      
-    };
+    // const onReset = () => {
+    //     const resetInputs = {       
+    //         name: '',
+    //         email: '',
+    //         password: '',
+    //         cpassword: ''
+    //     };
+    //     setInputs(resetInputs);      
+    // };
 
 
     return (
@@ -81,8 +93,6 @@ export default function Register() {
                                 placeholder="이름"
                                 type="text"
                                 className="form_input"
-                                // value={inputs.name}
-                                // onChange={onCahngeHandler}
                             /><br />
                         </div>
                         <div className="form_block">
@@ -92,8 +102,6 @@ export default function Register() {
                                 placeholder="example@gmail.com"
                                 type="text"
                                 className="form_input"
-                                // value={inputs.email}
-                                // onChange={onCahngeHandler}
                             /><br />
                         </div>
                         <div className="form_block">
@@ -103,8 +111,6 @@ export default function Register() {
                                 placeholder="비밀번호"
                                 type={hidePassword ? "password":"text"}
                                 className="form_input"
-                                // value={inputs.password}
-                                // onChange={onCahngeHandler}
                             /><br />
                         </div>
                         <div className="form_block">
@@ -114,8 +120,6 @@ export default function Register() {
                                 placeholder="비밀번호 확인"
                                 type={hidePassword ? "password":"text"}
                                 className="form_input"
-                                // value={inputs.cpassword}
-                                // onChange={onCahngeHandler}
                             /><br />
                         </div>
                         <input value="회원가입" type="submit" className="signup_btn form_button " />
@@ -126,3 +130,12 @@ export default function Register() {
         </section>
     )
 }
+
+
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(Register);

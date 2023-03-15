@@ -1,124 +1,96 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const { User } = require("../../models/User");
-const auth = require("../../middleware/auth");
-// const jwt = require("jsonwebtoken");
-
-//=================================
-//             users
-//=================================
+const { auth } = require("../../middleware/auth");
 
 // @route  GET api/users/auth
-// @desc   Auth
+// @desc   auth 미들웨어 실행 -> user 정보를 클라이언트로 제공
 // @access Public
-router.get("/auth", auth, async (req, res) => {
-    try {
-        // auth 미들웨어에서 생성한 req.user를 사용해 DB에서 user 탐색
-        // const user = await User.findById(req.user.id).select("-password");
-        // res.json(user);
+router.get("/auth", auth, (req, res) => {
+    console.log("/api/users/auth 실행");
 
-        res.status(200).json({
-            _id: req.user._id,
-            isAuth: true,
-            email: req.user.email,
-            name: req.user.name,
-            level: req.user.level,
-            token: req.token
-        });
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Server error");
-    }
+    res.status(200).json({
+        _id: req.user._id,
+        isAuth: true,
+        isAdmin: req.user.role === 0 ? false : true,
+        email: req.user.email,
+        name: req.user.name,
+    });
 });
 
-// @route  GET api/users/auth
-// @desc   auth 미들웨어, request를 받으면 callback func. 호출 전에 미들웨어 실행
-// @access Public
-// router.get("/auth", auth, (req, res) => {
-//     console.log("route auth 실행");
-//     console.log("req.user: ", req.user);
+router.post("/register", (req, res) => {
     
-//     res.status(200).json({
-//         _id: req.user._id,
-//         isAuth: true,
-//         email: req.user.email,
-//         name: req.user.name,
-//         level: req.user.level,
-//     });
-// });
+    const user = new User(req.body);
+    user.save()
+        .then(() => {
+            res.status(200).json({
+                registerSuccess: true
+            })
+        })
+        .catch((err) => {
+            res.json({
+                registerSuccess: false,
+                err
+            })
+        });
+});
 
-// @route  POST api/users/login
-// @desc   Login user
-// @access Public
+
 router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-    
     try {
-        // 1. 해당 email의 user가 존재하는지 확인
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email: req.body.email });
+
         console.log("find user: ", user);
         
         if (!user) {
             return res.json({
-                title: "login",
-                success: false,
-                msg: "존재하지 않는 사용자입니다.",
+                loginSuccess: false,
+                msg: "Auth failed, email not found",
             });
         }
         
-        // 2. 비밀번호 비교
-        user.comparePassword(password, (err, isMath) => {
-            if (err) return res.status(500).json({err: err});
+        user.comparePassword(req.body.password, (err, isMath) => {
+            if (err) return res.status(400).json({err: err});
             if (!isMath) {
                 return res.json({
-                    title: "login",
-                    success: false,
-                    msg: "비밀번호가 틀립니다.",
+                    loginSuccess: false,
+                    msg: "Wrong password.",
                 });
             }
 
-            // 3. 토큰 생성 -> 쿠키에 저장
             user.generateToken((err, user) => {
-                if (err) return res.status(500).json({err: err});
+                if (err) return res.status(400).json({err: err});
 
+                res.cookie("w_authExp", user.tokenExp);
                 res.cookie("x_auth", user.token)
                     .status(200)
                     .json({
-                        title: "login",
-                        success: true,
-                        userId: user._id,
-                        token: user.token
+                        loginSuccess: true,
+                        userId: user._id
                     });
             });
         });
     } catch (err) {
         console.error(err);
         res.status(500).json({
-            title: "login",
-            success: false,
+            loginSuccess: false,
             err
         });
     }
 });
 
 router.get("/logout", auth, (req, res) => {
-    console.log("logout user: ", req.user);
+    console.log("route logout 실행");
 
-    User.findOneAndUpdate({ _id: req.user._id }, {
-        token: ""
-    }, (err, user) => {
-        if (err) return res.status(401).json({
-            title: "logout",
-            success: false,
-            err
-        });
-
-        return res.status(200).json({
-            title: "logout",
-            success: true
+    User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: ""})
+        .then(() => {
+            return res.status(200).json({
+                success: true
+            });
+        }).catch((err) => {
+            res.json({ success: false, err });
         });
     });
-});
+
 
 module.exports = router;

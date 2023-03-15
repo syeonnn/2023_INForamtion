@@ -11,19 +11,27 @@ import Learning from './components/Learning/Learning';
 import Register from './components/Register';
 import Login from './components/Login';
 
+// Authentication Hook
+import Auth from './hoc/auth';
+
+
 function App() {
+  const AuthHomePage = Auth(Home, null);
+  const AuthLoginPage = Auth(Login, false);
+  const AuthRegisterPage = Auth(Register, false);
 
   return (
     <>
       <Navigation />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<AuthHomePage />} />
         <Route path="/learning" element={<Learning />}></Route>
         <Route exact path="/learning/:videoId" element={<Learning />}></Route>
         
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<AuthRegisterPage />} />
+        <Route path="/login" element={<AuthLoginPage />} />
+        {/* <Route path='/logout' element={<Logout />} /> */}
     
       </Routes>
     </>
