@@ -1,5 +1,5 @@
-from flask_socketio import SocketIO, emit, disconnect
 from flask import Flask
+from flask_socketio import SocketIO, emit, disconnect
 from flask_cors import CORS
 from threading import Thread, Event
 
@@ -8,13 +8,13 @@ from model_load import HandSignModel
 
 socket = SocketIO()
 
-
 def create_app():
     app = Flask(__name__)
-    CORS(app)
-    app.config['SECRET_KEY'] = 'secret!'
-
+    CORS(app, resources={r"/*":{"origins":"*"}})
+    # app.config['SECRET_KEY'] = 'secret!'
     socket.init_app(app, async_mode='eventlet', cors_allowed_origins='*', engineio_logger=False)
+    
+    
     model = HandSignModel()
 
     # Handle the webapp 
@@ -26,6 +26,7 @@ def create_app():
     @socket.on('connect')
     def connect_socket():
         print('user connected')
+
 
     @socket.on('coordinate')
     def handle_coordinate(data):
@@ -47,7 +48,8 @@ def create_app():
     return app
 
 if __name__=="__main__":
-  app = create_app()
-  app.run(port=5005)
-  
-from engineio.async_drivers import gevent
+    app = create_app()
+    # app.run(port=5005)
+    socket.run(app, host='0.0.0.0',port=5005)
+
+# from engineio.async_drivers import gevent

@@ -16,13 +16,16 @@ import {
 } from '@mediapipe/drawing_utils/drawing_utils';
 import * as cam from "@mediapipe/camera_utils";
 import { Socket, io } from "socket.io-client";
-const flaskUrl = String(process.env.REACT_APP_FLASKPORT);
+const flaskUrl = String(process.env.REACT_APP_FLASKPORT || 5005);
 
 const holistic = new Holistic({
     locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
     }
 });
+
+let socket;
+
 holistic.setOptions({
     modelComplexity: 1,
     smoothLandmarks: true,
@@ -52,7 +55,7 @@ function MediaPipeWebcam({
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
 
-    const socket = io();
+    // const socket = io();
 
 
     // function answer(props){
@@ -93,9 +96,9 @@ function MediaPipeWebcam({
         };
 
         setMediapipeData((cur) => {
-        const temp = [...cur];
-        temp.push(data);
-        return temp;
+            const temp = [...cur];
+            temp.push(data);
+            return temp;
         });
 
         canvasRef.current.width = webcamRef.current?.video.videoWidth;
@@ -157,16 +160,16 @@ function MediaPipeWebcam({
     
           handleOffMediapipe();
         }
-      }, [mediapipeData, openModal]);
+    }, [mediapipeData, openModal]);
 
-      useEffect(() => {
+    useEffect(() => {
         if (cameraOn) {
             holistic.onResults(onResults);
           } else {
             holistic.onResults(() => undefined);
             setMediapipeData([]);
           }
-        }, [cameraOn]);
+    }, [cameraOn]);
 
     useEffect(() => {
         if (!Loading) {
@@ -187,33 +190,38 @@ function MediaPipeWebcam({
               return;
             }
 
-        camera = new cam.Camera(webcamRef.current?.video, {
-            onFrame: async () => {
-                if (!webcamRef.current?.video || isCanceled) {
-                    return;
-                }
-                await holistic.send({ image: webcamRef.current?.video });
-                if(Loading)
-                    setLoading(true);
-            },
-            //width: 640,
-            //height: 480,
-        });
-        camera.start();
-    }
-    return () => {
-        isCanceled = true;
-  
-        holistic.onResults(() => undefined);
-  
-        camera?.stop();
-      };
+            camera = new cam.Camera(webcamRef.current?.video, {
+                onFrame: async () => {
+                    if (!webcamRef.current?.video || isCanceled) {
+                        return;
+                    }
+                    await holistic.send({ image: webcamRef.current?.video });
+                    if(Loading)
+                        setLoading(true);
+                },
+                //width: 640,
+                //height: 480,
+            });
+            camera.start();
+        }
+
+        return () => {
+            isCanceled = true;
+    
+            holistic.onResults(() => undefined);
+    
+            camera?.stop();
+        };
     }, []);
 
     useEffect(() => {
-        socket.connect('http://localhost:5005',
-        { path: `${flaskUrl}/socket.io` });
+        socket = io('http://localhost:5005');
+        //{ path: `${flaskUrl}/socket.io` });
         
+        socket.on("connect", () => {
+            console.log("User conneccted")
+        });
+
         return () => {
             socket?.disconnect();
             console.log("disconnect socket");
@@ -222,9 +230,6 @@ function MediaPipeWebcam({
     
     useEffect(() => {
         if (socket) {
-            console.log("Here's socket.");  
-            //const th = 1;
-            //handleSetSocketAnswer && handleSetSocketAnswer(th);
           
           // 소켓 답변 얻어오는 함수
           socket.on("answer", (data)=>{
