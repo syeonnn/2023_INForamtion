@@ -19,11 +19,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <Provider store={createStoreWithMiddleware(Reducer)}>
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </Provider>
 );
 

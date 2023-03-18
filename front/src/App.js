@@ -22,8 +22,6 @@ function App() {
 
   return (
     <>
-      <Navigation />
-
       <Routes>
         <Route path="/" element={<AuthHomePage />} />
         <Route path="/learning" element={<Learning />}></Route>
@@ -31,9 +29,10 @@ function App() {
         
         <Route path="/register" element={<AuthRegisterPage />} />
         <Route path="/login" element={<AuthLoginPage />} />
-        {/* <Route path='/logout' element={<Logout />} /> */}
     
       </Routes>
+      
+      <Navigation />
     </>
   );
 }

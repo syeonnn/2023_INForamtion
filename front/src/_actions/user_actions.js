@@ -12,7 +12,6 @@ export function loginUser(dataToSubmit) {
             "Content-Type":"application/json"
         }
     }
-
     const request = axios.post("/api/users/login", dataToSubmit, headers)
                     .then(response => {
                         console.log(response.data);

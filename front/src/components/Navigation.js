@@ -50,150 +50,74 @@ export default function Navigation() {
     
     });
 
-    console.log("nav bar: ", user);
-
-    if (user.userData && !user.userData?.isAuth) {
-        return (
-            <div className="sb-nav-fixed">
-            <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark navbar-shrink" id="mainNav">
-                <NavLink to="#page-top" className="navbar-brand ps-3">
-                    생활 수어
-                </NavLink>
-
-                <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-
-                    <li className="nav-item dropdown">
-                        <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fas fa-user fa-fw"></i></Link>
-                        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li className="dropdown-item"><Link to="/login" className="nav-link">로그인</Link></li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li className="dropdown-item"><NavLink to="/register" className="nav-link">회원가입</NavLink></li>
-                            <li><hr className="dropdown-divider" /></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-
-            
-            <div id="layoutSidenav">
-                <div id="layoutSidenav_nav">
-                    <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                        <div className="sb-sidenav-menu">
-                            <div className="nav">
-
-                                <Link to="/" className="nav-link">
-                                    <div className="sb-nav-link-icon"><i className="fa-solid fa-house"></i></div>
-                                    홈
-                                </Link>
-
-
-                                <Link className="nav-link collapsed" data-bs-toggle="collapse" to="#collapseLearning" aria-expanded="false" aria-controls="collapseLearning">
-                                    <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
-                                    학습
-                                    <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
-                                </Link>
-
-                                <div className="collapse" id="collapseLearning" data-bs-parent="#sidenavAccordion">
-                                    {renderWordLink}
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div className="sb-sidenav-footer">
-                            <div className="small">Copyright</div>
-                            © 2023 INFormation
-                        </div>
-                    </nav>
-                </div>
-            </div>
-            
-            </div>
-        )
+    // 간혹 user.userData가 없어서 nav bar에 로그아웃만 뜨는 경우 있음
+    if (user.userData) {
+        console.log("nav bar: user 데이터 존재 O");
     } else {
-        return (
-            <div className="sb-nav-fixed">
-            <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark navbar-shrink" id="mainNav">
-                <NavLink to="#page-top" className="navbar-brand ps-3">
-                    생활 수어
-                </NavLink>
-
-                <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-
-                    <li className="nav-item dropdown">
-                        <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fas fa-user fa-fw"></i></Link>
-                        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li className="dropdown-item"><a onClick={logoutHandler}>로그아웃</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-
-            
-            <div id="layoutSidenav">
-                <div id="layoutSidenav_nav">
-                    <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                        <div className="sb-sidenav-menu">
-                            <div className="nav">
-
-                                <Link to="/" className="nav-link">
-                                    <div className="sb-nav-link-icon"><i className="fa-solid fa-house"></i></div>
-                                    홈
-                                </Link>
-
-
-                                <Link className="nav-link collapsed" data-bs-toggle="collapse" to="#collapseLearning" aria-expanded="false" aria-controls="collapseLearning">
-                                    <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
-                                    학습
-                                    <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
-                                </Link>
-
-                                <div className="collapse" id="collapseLearning" data-bs-parent="#sidenavAccordion">
-                                    {renderWordLink}
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div className="sb-sidenav-footer">
-                            <div className="small">Copyright</div>
-                            © 2023 INFormation
-                        </div>
-                    </nav>
-                </div>
-            </div>
-
-            </div>
-        )
+        console.log("nav bar: user 데이터 존재 X");
     }
-    /*
+
     return (
-
         <div className="sb-nav-fixed">
-            <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark navbar-shrink" id="mainNav">
-                <NavLink to="#page-top" className="navbar-brand ps-3">
-                    생활 수어
-                </NavLink>
+        <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark navbar-shrink" id="mainNav">
+            <NavLink to="#page-top" className="navbar-brand ps-3">
+                생활 수어
+            </NavLink>
 
-                <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 
-                    <li className="nav-item dropdown">
-                        <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fas fa-user fa-fw"></i></Link>
+                <li className="nav-item dropdown">
+                    <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fas fa-user fa-fw"></i></Link>
+                    { user.userData && !user.userData?.isAuth ? (
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li className="dropdown-item"><Link to="/login" className="nav-link">로그인</Link></li>
                             <li><hr className="dropdown-divider" /></li>
                             <li className="dropdown-item"><NavLink to="/register" className="nav-link">회원가입</NavLink></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li className="dropdown-item"><a onClick={logoutHandler}>로그아웃</a></li>
                         </ul>
-                    </li>
-                </ul>
-            </nav>
+                    ) : (
+                        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                             <li className="dropdown-item"><a href={()=> false} onClick={logoutHandler}>로그아웃</a></li>
+                        </ul>
+                    )}
+                </li>
+            </ul>
+        </nav>
+
+        
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div className="sb-sidenav-menu">
+                        <div className="nav">
+
+                            <Link to="/" className="nav-link">
+                                <div className="sb-nav-link-icon"><i className="fa-solid fa-house"></i></div>
+                                홈
+                            </Link>
 
 
+                            <Link className="nav-link collapsed" data-bs-toggle="collapse" to="#collapseLearning" aria-expanded="false" aria-controls="collapseLearning">
+                                <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
+                                학습
+                                <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
+                            </Link>
+
+                            <div className="collapse" id="collapseLearning" data-bs-parent="#sidenavAccordion">
+                                {renderWordLink}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div className="sb-sidenav-footer">
+                        <div className="small">Copyright</div>
+                        © 2023 INFormation
+                    </div>
+                </nav>
+            </div>
         </div>
-
-
+        
+        </div>
     )
-    */
 }

@@ -69,6 +69,10 @@ userSchema.methods.generateToken = function (cb) {
     
     user.tokenExp = oneHour;
     user.token = token;
+    // user.save((err, user) => {
+    //     if (err) return cb(err);
+    //     cb(null, user);
+    // });
     user.save()
         .then((user) => {
             cb(null, user);

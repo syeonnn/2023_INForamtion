@@ -19,6 +19,7 @@ router.get("/auth", auth, (req, res) => {
 });
 
 router.post("/register", (req, res) => {
+    console.log("route register 실행");
     
     const user = new User(req.body);
     user.save()
@@ -37,6 +38,8 @@ router.post("/register", (req, res) => {
 
 
 router.post("/login", async (req, res) => {
+    console.log("route login 실행");
+
     try {
         const user = await User.findOne({ email: req.body.email });
 
@@ -50,7 +53,12 @@ router.post("/login", async (req, res) => {
         }
         
         user.comparePassword(req.body.password, (err, isMath) => {
-            if (err) return res.status(400).json({err: err});
+            if (err) {
+                console.log("비밀번호 비교 에러");
+                console.error(err);
+                return res.status(400).json({err: err});
+            }
+
             if (!isMath) {
                 return res.json({
                     loginSuccess: false,
@@ -59,7 +67,11 @@ router.post("/login", async (req, res) => {
             }
 
             user.generateToken((err, user) => {
-                if (err) return res.status(400).json({err: err});
+                if (err) {
+                    console.log("토큰 생성 에러");
+                    console.error(err);
+                    return res.status(400).json({err: err});
+                }
 
                 res.cookie("w_authExp", user.tokenExp);
                 res.cookie("x_auth", user.token)
@@ -72,6 +84,7 @@ router.post("/login", async (req, res) => {
         });
     } catch (err) {
         console.error(err);
+
         res.status(500).json({
             loginSuccess: false,
             err
