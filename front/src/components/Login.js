@@ -26,6 +26,7 @@ function Login(props) {
                     navigate("/");
                 } else {
                     alert("Failed to Log in, you can check your Email or Password");
+                    e.target.reset();
                 }
         })
     }

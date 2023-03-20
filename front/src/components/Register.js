@@ -10,13 +10,6 @@ function Register(props) {
     const navigate = useNavigate();
     const [hidePassword, setHidePassword] = useState(true);
     
-    // const [inputs, setInputs] = useState({  
-    //     name: '',
-    //     email: '',
-    //     password: '',
-    //     cpassword: ''
-    // })
-
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         
@@ -33,33 +26,35 @@ function Register(props) {
                     alert("회원가입에 성공했습니다.");
                     navigate("/login");
                 } else {
-                    alert("Your attempt tot send data to DB was failed.");
+                    // alert("Your attempt to send data to DB was failed.");
+                    alert(response.payload.msg)
                 }
             })
             .catch(err => {
                 console.error(err);
             });
+        e.target.reset();
     }
 
-        // await axios.post("http://localhost:4000/api/register", {
-        //     "name": name,
-        //     "email": email,
-        //     "password": password,
-        //     "cpassword": cpassword
-        // }).then((res) => {
-        //     console.log(res.data);
-        //     // 회원가입 성공
-        //     if (res.data.success) {
-        //         alert("회원가입이 완료되었습니다.");
-        //         return navigate("/login");
-        //     } else {
-        //         alert(res.data.msg);
-        //         return navigate("/register")
-        //     }
-        // }).catch((err) => {
-        //     console.error(err);
-        //     alert(err);
-        // });
+    // await axios.post("http://localhost:4000/api/register", {
+    //     "name": name,
+    //     "email": email,
+    //     "password": password,
+    //     "cpassword": cpassword
+    // }).then((res) => {
+    //     console.log(res.data);
+    //     // 회원가입 성공
+    //     if (res.data.success) {
+    //         alert("회원가입이 완료되었습니다.");
+    //         return navigate("/login");
+    //     } else {
+    //         alert(res.data.msg);
+    //         return navigate("/register")
+    //     }
+    // }).catch((err) => {
+    //     console.error(err);
+    //     alert(err);
+    // });
 
     // const onCahngeHandler = (e) => {
     //     const { value, name } = e.target;
@@ -67,16 +62,6 @@ function Register(props) {
     //         ...inputs,
     //         [name]: value,
     //     });
-    // };
-
-    // const onReset = () => {
-    //     const resetInputs = {       
-    //         name: '',
-    //         email: '',
-    //         password: '',
-    //         cpassword: ''
-    //     };
-    //     setInputs(resetInputs);      
     // };
 
 

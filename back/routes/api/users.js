@@ -18,23 +18,23 @@ router.get("/auth", auth, (req, res) => {
     });
 });
 
-router.post("/register", (req, res) => {
-    console.log("route register 실행");
+// router.post("/register", (req, res) => {
+//     console.log("route register 실행");
     
-    const user = new User(req.body);
-    user.save()
-        .then(() => {
-            res.status(200).json({
-                registerSuccess: true
-            })
-        })
-        .catch((err) => {
-            res.json({
-                registerSuccess: false,
-                err
-            })
-        });
-});
+//     const user = new User(req.body);
+//     user.save()
+//         .then(() => {
+//             res.status(200).json({
+//                 registerSuccess: true
+//             })
+//         })
+//         .catch((err) => {
+//             res.json({
+//                 registerSuccess: false,
+//                 err
+//             })
+//         });
+// });
 
 
 router.post("/login", async (req, res) => {
