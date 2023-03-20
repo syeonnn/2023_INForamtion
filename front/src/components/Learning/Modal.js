@@ -21,7 +21,7 @@ function Modal({
       >
         <ModalInner
           tabIndex={0}
-          className="modal-inner"
+          className={className}
           visible={visible}
           style={style}
           backGroundTransparent={backGroundTransparent && backGroundTransparent}

@@ -73,11 +73,10 @@ export default function Navigation() {
                             <li className="dropdown-item"><Link to="/login" className="nav-link">로그인</Link></li>
                             <li><hr className="dropdown-divider" /></li>
                             <li className="dropdown-item"><NavLink to="/register" className="nav-link">회원가입</NavLink></li>
-                            <li><hr className="dropdown-divider" /></li>
                         </ul>
                     ) : (
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                             <li className="dropdown-item"><a href={()=> false} onClick={logoutHandler}>로그아웃</a></li>
+                             <li className="dropdown-item"><Link to={()=> false} className="nav-link" onClick={logoutHandler}>로그아웃</Link></li>
                         </ul>
                     )}
                 </li>
@@ -96,9 +95,8 @@ export default function Navigation() {
                                 홈
                             </Link>
 
-
                             <Link className="nav-link collapsed" data-bs-toggle="collapse" to="#collapseLearning" aria-expanded="false" aria-controls="collapseLearning">
-                                <div className="sb-nav-link-icon"><i className="fas fa-book-open"></i></div>
+                                <div className="sb-nav-link-icon"><i className="fa-solid fa-pencil"></i></div>
                                 학습
                                 <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
                             </Link>
@@ -106,6 +104,12 @@ export default function Navigation() {
                             <div className="collapse" id="collapseLearning" data-bs-parent="#sidenavAccordion">
                                 {renderWordLink}
                             </div>
+
+                            
+                            <Link to="/dictionary" className="nav-link">
+                                <div className="sb-nav-link-icon"><i className="fa-solid fa-book-open"></i></div>
+                                사전
+                            </Link>
 
                         </div>
                     </div>
