@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
         if (!isValid) {
             return res.json({
                 registerSuccess: false,
-                msg: "password and cpassword don't match"
+                msg: "비밀번호와 확인용 비밀번호가 일치하지 않습니다."
             });
         }
         

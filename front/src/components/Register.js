@@ -9,30 +9,54 @@ import { registerUser } from "../_actions/user_actions";
 function Register(props) {
     const navigate = useNavigate();
     const [hidePassword, setHidePassword] = useState(true);
+
+    const isValid = (e) => {
+        if (!e.target.name.value) {
+            alert("이름을 입력해주세요.");
+            return false;
+        }
+        if (!e.target.email.value) {
+            alert("이메일을 입력해주세요.");
+            return false;
+        }
+        if (!e.target.password.value) {
+            alert("비밀번호를 입력해주세요.");
+            return false;
+        }
+        if (!e.target.cpassword.value) {
+            alert("확인용 비밀번호를 입력해주세요.");
+            return false;
+        }
+
+        return true;
+    }
+
     
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-        
-        const dataToSubmit = {
-            name : e.target.name.value,
-            email : e.target.email.value,
-            password : e.target.password.value,
-            cpassword : e.target.cpassword.value
+
+        if (isValid(e)) {
+            const dataToSubmit = {
+                name : e.target.name.value,
+                email : e.target.email.value,
+                password : e.target.password.value,
+                cpassword : e.target.cpassword.value
+            }
+    
+            props.dispatch(registerUser(dataToSubmit))
+                .then(response => {
+                    if (response.payload.registerSuccess) {
+                        alert("회원가입에 성공했습니다.");
+                        navigate("/login");
+                    } else {
+                        alert(response.payload.msg)
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         }
 
-        props.dispatch(registerUser(dataToSubmit))
-            .then(response => {
-                if (response.payload.registerSuccess) {
-                    alert("회원가입에 성공했습니다.");
-                    navigate("/login");
-                } else {
-                    // alert("Your attempt to send data to DB was failed.");
-                    alert(response.payload.msg)
-                }
-            })
-            .catch(err => {
-                console.error(err);
-            });
         e.target.reset();
     }
 
