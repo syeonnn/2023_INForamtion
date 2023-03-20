@@ -80,6 +80,7 @@
 
 body {
   margin: 0;
+
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
@@ -5677,6 +5678,7 @@ header.learningspace {
   background-size: cover;
   max-width: 100%;
 }
+
 .contents{
   margin: 30px auto;
   padding-left: 10px;
@@ -6435,31 +6437,91 @@ body {
   margin-bottom: 64px;
 }
 
-/* 
-.modal-close{
-  width:498px;
-}
-.modal-close .btn-close{
-  padding-left: 100px;
-}
+.dic-space{
+  padding-top: 71px;
+  padding-left: 225px;
+  padding-bottom: 40px;
+  background-color: var(--bs-gray-200);
+  
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;  
+} 
 
-.hd-border{
-  border-bottom: none !important;
-}
+.searchCard {
+  margin : 10px auto auto;
+  height: 100px;
+  width: 90%;
 
-.signin_form {
   display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.modal-header .signin-title{
+  align-items: center;
   justify-content: center;
 }
+.searchInput {
+  appearance: none;
+  margin-top: 3px;
+  line-height: 1.47;
+  height: 48px;
+  width: 600px;
+  padding: 13px 12px;
+  font-size: 15px;
+  
+  border: 1px solid #fff;
 
-.signin-title{
-  display: flex;
-  margin: 12px 0 24px;
-  justify-content: center;
+  letter-spacing: -.3px;
+  border-radius: 4px;
+  background-color: #fff;
 }
- */
+
+.searchBtn {
+  border: 1px solid;
+  color: #fff;
+  border-color: #0d6efd;
+  border-radius: 0.25rem;;
+  font-weight: 700;
+  background-color: #0d6efd;
+  margin-left : 20px;
+  padding: 0 16px;
+  height: 48px;
+  line-height: 1.47;
+  font-size: 15px;
+}
+
+.wordCard {
+  margin : 15px auto auto;
+  height: 200px;
+  width: 95%;
+  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: #fff;
+
+  display: flex;
+  position: relative;
+
+}
+
+.imgBox {
+  overflow: hidden;
+  margin: 0 ;
+}
+
+.noteBox {
+  position: absolute;
+  left: 200px;
+  display: flex;
+}
+
+.note1 {
+ margin: 10px;
+ box-sizing: border-box;
+ flex-shrink: 0;
+ width: 410px;
+}
+
+.note2 {
+  margin: 10px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  flex-grow: 1;
+}
+

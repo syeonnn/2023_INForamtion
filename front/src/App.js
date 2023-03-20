@@ -5,9 +5,8 @@ import React from "react";
 
 import Navigation from './components/Navigation';
 import Home from './components/Home';
-//import Footer from './components/Footer';
 import Learning from './components/Learning/Learning';
-//import Quiz from './components/Quiz';
+import Dictionary from './components/Dictionary';
 import Register from './components/Register';
 import Login from './components/Login';
 
@@ -26,6 +25,7 @@ function App() {
         <Route path="/" element={<AuthHomePage />} />
         <Route path="/learning" element={<Learning />}></Route>
         <Route exact path="/learning/:videoId" element={<Learning />}></Route>
+        <Route path="/dictionary" element={<Dictionary />}></Route>
         
         <Route path="/register" element={<AuthRegisterPage />} />
         <Route path="/login" element={<AuthLoginPage />} />

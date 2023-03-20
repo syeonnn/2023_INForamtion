@@ -34,7 +34,7 @@ export const ToolTipContent = styled.div`
 
 export const ModalButtonContainer = styled.div`
   display: flex;
-  width: 800px;
+  width: 400px;
   background-color: white;
   padding: 5px 0 5px 0;
 `;
@@ -45,7 +45,7 @@ export const ModalButton = styled.div`
   font-weight: bold;
   cursor: pointer;
   width: 100%;
-  font-size: 3rem;
+  font-size: 1.5rem;
   text-align: center;
   color: #3a86ff;
 `;

@@ -57,7 +57,6 @@ function MediaPipeWebcam({
 
     // const socket = io();
 
-
     // function answer(props){
     //     return(props)
     // }
@@ -210,7 +209,7 @@ function MediaPipeWebcam({
     
             holistic.onResults(() => undefined);
     
-            camera?.stop();
+            camera.stop();
         };
     }, []);
 

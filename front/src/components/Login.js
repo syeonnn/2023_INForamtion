@@ -58,7 +58,7 @@ function Login(props) {
                 <div className="signin_main">
                     <form className="signin_form" onSubmit={onSubmitHandler}>
                         <div className="form_block">
-                            <label for="email" className="form_label">이메일</label><br />
+                            <label htmlFor="email" className="form_label">이메일</label><br />
                             <input
                                 name="email"
                                 placeholder="example@gmail.com"
@@ -69,7 +69,7 @@ function Login(props) {
                         </div>
 
                         <div className="form_block">
-                            <label for="password" className="form_label">비밀번호</label><br />
+                            <label htmlFor="password" className="form_label">비밀번호</label><br />
                             <input
                                 name="password"
                                 placeholder="비밀번호"
