@@ -1,0 +1,8 @@
+/front/node_modules
+/back/node_modules
+/back/config/default.json
+/back/config/dev.json
+/back/임시_package-lock.json
+/z_back
+/z_back1
+/tmp

@@ -1,0 +1,6 @@
+{
+    "mongoURI":"mongodb+srv://admin:N4ikGIaYM0jtqwAc@cluster0.rh398fq.mongodb.net/?retryWrites=true&w=majority",
+    "mongoStartbucks":"mongodb://admin:N4ikGIaYM0jtqwAc@ac-1jkkinx-shard-00-00.rh398fq.mongodb.net:27017,ac-1jkkinx-shard-00-01.rh398fq.mongodb.net:27017,ac-1jkkinx-shard-00-02.rh398fq.mongodb.net:27017/?ssl=true&replicaSet=atlas-2ns8bg-shard-0&authSource=admin&retryWrites=true&w=majority",
+    "mongoURI_private":"mongodb+srv://test:TW1QhVroaRHlPhPl@cluster0.uvuvhea.mongodb.net/?retryWrites=true&w=majority",
+    "mongoURI_local":"mongodb://127.0.0.1:27017/2023_project"
+}
