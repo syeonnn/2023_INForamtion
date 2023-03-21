@@ -60,34 +60,6 @@ function Register(props) {
         e.target.reset();
     }
 
-    // await axios.post("http://localhost:4000/api/register", {
-    //     "name": name,
-    //     "email": email,
-    //     "password": password,
-    //     "cpassword": cpassword
-    // }).then((res) => {
-    //     console.log(res.data);
-    //     // 회원가입 성공
-    //     if (res.data.success) {
-    //         alert("회원가입이 완료되었습니다.");
-    //         return navigate("/login");
-    //     } else {
-    //         alert(res.data.msg);
-    //         return navigate("/register")
-    //     }
-    // }).catch((err) => {
-    //     console.error(err);
-    //     alert(err);
-    // });
-
-    // const onCahngeHandler = (e) => {
-    //     const { value, name } = e.target;
-    //     setInputs({
-    //         ...inputs,
-    //         [name]: value,
-    //     });
-    // };
-
 
     return (
         <section className="register">
