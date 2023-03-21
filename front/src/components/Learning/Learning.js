@@ -1,18 +1,16 @@
 import React, { useRef, useEffect, useState } from "react";
 import MediaPipeWebCam from "./MediaPipeWebcam";
 import { io } from "socket.io-client";
-import { Tooltip } from 'react-tooltip';
 import Loading from "./Loading";
 import Modal from "./Modal";
 import axios from 'axios';
-import { useParams, useNavigate, Outlet} from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import {
   StartButton,
   StartTriangle,
   ModalButton,
   ModalButtonContainer,
-  ToolTipContent,
 } from "./index.style";
 
 export const ALPHABET_LENGTH = 26;
@@ -27,7 +25,7 @@ const modalStyle = {
   borderRadius: "0",
 };
 
-function Learning(props) {
+function Learning() {
   //const { pathname } = useLocation();
   const navigate = useNavigate();
   const [isLearningPage, setIsLearningPage] = useState(true);
@@ -50,7 +48,12 @@ function Learning(props) {
   const { videoId } = useParams();
   const [ Video, setVideo ] = useState([]);
 
- 
+
+  const isCameraSettingOn = () => {
+    if (isLoading === false) return;
+    setIsLoading(false);
+  };
+
   const handleClickButton = () => {
     setIsModalOpen((cur) => {
       return {
@@ -69,83 +72,6 @@ function Learning(props) {
         };
       });
     }, 2000);
-  };
-
-  // socket에서 넘어온 데이터 중에 내가 최근 선택한 값이 들어있는지 확인
-  const checkAnswer = (answer) => {
-    if (Array.isArray(answer)) {
-      return answer.find((ans) => {
-        return ans === curSelected.toLowerCase();
-      });
-    }
-  };
-
-  // socket에서 보내온 응답을 저장한다. ["a", "b", "c"]
-  const handleSetSocketAnswer = (answer) => {
-    setSocketAnswer(answer);
-    if (checkAnswer(answer) !== undefined) {
-      setIsModalOpen((cur) => {
-        return {
-          ...cur,
-          waitingAnswerModal: false,
-          correctModal: true,
-        };
-      });
-    } else {
-      setIsModalOpen((cur) => {
-        return {
-          ...cur,
-          waitingAnswerModal: false,
-          wrongModal: true,
-        };
-      });
-    }
-  };
-
-
-  const handleOffMediapipe = () => {
-    setCameraOn(false);
-  };
-
-  const openModal = () => {
-    setIsModalOpen((cur) => {
-      return {
-        ...cur,
-        waitingAnswerModal: true,
-      };
-    });
-  };
-
-  // const handleSetCurSelectedButton = (data) => {
-  //   setCurSelectedButton(data);
-  // };
-
-  // const handleSetSelected = (props) => {
-  //   const video_id = props.match.params.videoId;
-  //   setCurSelected(video_id)
-  // }
-
-  useEffect(() => {
-    try {
-      //const localIsAlphabet = pathname.includes("alphabet") === true;
-      //getVideos(localIsAlphabet);
-      // setIsLearningPage(true);
-      //   setCurSelected({
-      //     word: "hi",
-      //     index: 0,
-      //   });
-
-      setCurSelected(videoId)
-      console.log(videoId);
-    } catch (e) {
-      throw new Error(e);
-    }
-  }, []);
-
-
-  const isCameraSettingOn = () => {
-    if (isLoading === false) return;
-    setIsLoading(false);
   };
 
   const getVideos = async () => {
@@ -178,6 +104,67 @@ function Learning(props) {
       };
     }
   }, [videoId]);
+
+  useEffect(() => {
+    try {
+      setCurSelected(videoId)
+      console.log(videoId);
+    } catch (e) {
+      throw new Error(e);
+    }
+  }, []);
+
+
+  const openModal = () => {
+    setIsModalOpen((cur) => {
+      return {
+        ...cur,
+        waitingAnswerModal: true,
+      };
+    });
+  };
+
+  const handleOffMediapipe = () => {
+    setCameraOn(false);
+  };
+
+   // socket에서 넘어온 데이터 중에 내가 최근 선택한 값이 들어있는지 확인
+   const checkAnswer = (answer) => {
+    if (Array.isArray(answer)) {
+      console.log(answer);
+      return answer.find((ans) => {
+        console.log(ans === curSelected.toLowerCase());
+        return ans === curSelected.toLowerCase();
+        
+      });
+    }
+  };
+
+  // socket에서 보내온 응답을 저장한다. ["a", "b", "c"]
+  const handleSetSocketAnswer = (answer) => {
+    setSocketAnswer(answer);
+    if (checkAnswer(answer) !== undefined) {
+      setIsModalOpen((cur) => {
+        return {
+          ...cur,
+          waitingAnswerModal: false,
+          correctModal: true,
+        };
+      });
+    } else {
+      setIsModalOpen((cur) => {
+        return {
+          ...cur,
+          waitingAnswerModal: false,
+          wrongModal: true,
+        };
+      });
+    }
+  };
+
+  
+
+
 
   return (
 
