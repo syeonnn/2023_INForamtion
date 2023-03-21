@@ -6525,3 +6525,43 @@ body {
   flex-grow: 1;
 }
 
+.mp-space {
+  padding-top: 71px;
+  padding-left: 225px;
+  padding-bottom: 40px;
+  display: flex;
+}
+
+.profileBox {
+  margin : 30px auto auto;
+  height: 200px;
+  width: 30%;
+  padding: 15px 30px;
+  background-color: var(--bs-gray-100);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profileName {
+  margin: 18px 0 0 20px;
+  justify-content: center;
+}
+
+.v-line {
+  margin-top: 40px;
+  border-left : medium solid var(--bs-primary);
+  height : 300px;
+}
+
+.historyBox {
+  margin: 30px auto auto;
+  height: 200px;
+  width: 40%;
+  padding: 25px 30px;
+  background-color: var(--bs-gray-100);
+  flex-direction: column;
+}
+.historyList {
+  padding-top : 7px;
+}
