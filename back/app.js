@@ -19,9 +19,11 @@ app.use(cookieParser());
 const registerRouter = require("./routes/api/register");
 const usersRouter = require("./routes/api/users");
 const videoRouter = require("./routes/api/video");
-app.use("/api/register", registerRouter);
+const wordsRouter = require("./routes/api/words")
+app.use("/api/users/register", registerRouter);
 app.use("/api/users", usersRouter);
 app.use('/api/video', videoRouter);
+app.use("/api/words", wordsRouter);
 
 app.use("/api/resoruce", express.static("assets"));
 

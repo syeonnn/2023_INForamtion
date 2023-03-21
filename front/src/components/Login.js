@@ -10,25 +10,45 @@ function Login(props) {
     const [hidePassword, setHidePassword] = useState(true);
     const navigate = useNavigate();
 
+    const isValid = (e) => {
+        if (!e.target.email.value) {
+            alert("이메일을 입력해주세요.");
+            return false;
+        }
+        if (!e.target.password.value) {
+            alert("비밀번호를 입력해주세요.");
+            return false;
+        }
+
+        return true;
+    }
+
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
-        const dataToSubmit = {
-            email: e.target.email.value,
-            password: e.target.password.value
+        if (isValid(e)) {
+            const dataToSubmit = {
+                email: e.target.email.value,
+                password: e.target.password.value
+            };
+    
+            
+            props.dispatch(loginUser(dataToSubmit))
+                .then(response => {
+                    if (response.payload.loginSuccess) {
+                        alert("로그인에 성공했습니다.");
+                        navigate("/");
+                    } else {
+                        alert("로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요. ");
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         }
 
-        
-        props.dispatch(loginUser(dataToSubmit))
-            .then(response => {
-                if (response.payload.loginSuccess) {
-                    alert("로그인에 성공했습니다.");
-                    navigate("/");
-                } else {
-                    alert("Failed to Log in, you can check your Email or Password");
-                }
-        })
-    }
+        e.target.reset();
+    };
 
 
     return (

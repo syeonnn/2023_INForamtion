@@ -18,24 +18,6 @@ router.get("/auth", auth, (req, res) => {
     });
 });
 
-router.post("/register", (req, res) => {
-    console.log("route register 실행");
-    
-    const user = new User(req.body);
-    user.save()
-        .then(() => {
-            res.status(200).json({
-                registerSuccess: true
-            })
-        })
-        .catch((err) => {
-            res.json({
-                registerSuccess: false,
-                err
-            })
-        });
-});
-
 
 router.post("/login", async (req, res) => {
     console.log("route login 실행");
@@ -48,13 +30,13 @@ router.post("/login", async (req, res) => {
         if (!user) {
             return res.json({
                 loginSuccess: false,
-                msg: "Auth failed, email not found",
+                msg: "존재하지 않는 사용자입니다."
             });
         }
         
         user.comparePassword(req.body.password, (err, isMath) => {
             if (err) {
-                console.log("비밀번호 비교 에러");
+                console.log("comparePassword 에러");
                 console.error(err);
                 return res.status(400).json({err: err});
             }
@@ -62,13 +44,13 @@ router.post("/login", async (req, res) => {
             if (!isMath) {
                 return res.json({
                     loginSuccess: false,
-                    msg: "Wrong password.",
+                    msg: "비밀번호가 틀립니다.",
                 });
             }
 
             user.generateToken((err, user) => {
                 if (err) {
-                    console.log("토큰 생성 에러");
+                    console.log("generateToken 에러");
                     console.error(err);
                     return res.status(400).json({err: err});
                 }

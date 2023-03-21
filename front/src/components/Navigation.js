@@ -28,13 +28,15 @@ export default function Navigation() {
 
     useEffect(() => {
         axios.get("http://localhost:4000/api/video/getVideos")
-            .then((res) => {
-                if (res.data.success) {
-                    // console.log(res.data.videos);
-                    setVideos(res.data.videos);
+            .then((response) => {
+                if (response.data.success) {
+                    setVideos(response.data.videos);
                 } else {
-                    alert('Failed to get Videos')
+                    alert('Failed to get Videos');
                 }
+            })
+            .catch((err) => {
+                console.error(err);
             })
     }, []);
 
