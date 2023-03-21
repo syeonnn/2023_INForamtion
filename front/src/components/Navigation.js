@@ -73,8 +73,11 @@ export default function Navigation() {
                     { user.userData && !user.userData?.isAuth ? (
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li className="dropdown-item"><Link to="/login" className="nav-link">로그인</Link></li>
-                            <li><hr className="dropdown-divider" /></li>
+                            
                             <li className="dropdown-item"><NavLink to="/register" className="nav-link">회원가입</NavLink></li>
+                            <li><hr className="dropdown-divider" /></li>
+                            <li className="dropdown-item"><Link to="/my-page" className="nav-link">마이페이지</Link></li>
+
                         </ul>
                     ) : (
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

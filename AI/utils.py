@@ -3,7 +3,7 @@ from scipy.stats import rankdata
 from collections import Counter
 
 
-def top_n(array, n=3):
+def top_n(array, n=1):
     """
     유사도 상위 n개 데이터의 인덱스 반환 함수
     :param n:
@@ -18,7 +18,7 @@ def top_n(array, n=3):
     return top_n_idx
 
 
-def get_top_n_frequency(array, n=3):
+def get_top_n_frequency(array, n=1):
     """
     최빈값 상위 n개 데이터 반환
     :param n:
