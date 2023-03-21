@@ -143,7 +143,7 @@ function MediaPipeWebcam({
     //const endRef = useRef();
 
     useEffect(() => {
-        if (mediapipeData.length === 50) {
+        if (mediapipeData.length === 30) {
           //startRef.current = new Date();
           // 50개가 다 차면 정답을 기다리는 모달을 띄우기 위함
           openModal && openModal();
