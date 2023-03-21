@@ -5,6 +5,8 @@ import Loading from "./Loading";
 import Modal from "./Modal";
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux';
+
 
 import {
   StartButton,
@@ -28,6 +30,9 @@ const modalStyle = {
 function Learning() {
   //const { pathname } = useLocation();
   const navigate = useNavigate();
+  
+  const user = useSelector(state => state.user);
+  
   const [isLearningPage, setIsLearningPage] = useState(true);
   const [cameraOn, setCameraOn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +52,7 @@ function Learning() {
 
   const { videoId } = useParams();
   const [ Video, setVideo ] = useState([]);
+
 
 
   const isCameraSettingOn = () => {
@@ -165,6 +171,21 @@ function Learning() {
     }
   };
 
+  const saveLearningLevel = () => {
+    if (user.userData?.isAuth && Video) {
+      axios.post("/api/users/update", {
+        email: user.userData.email,
+        level: Video.mean // curSelected?.toLowerCase()  
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+    }
+  }
+
   
 
 
@@ -191,6 +212,7 @@ function Learning() {
                   };
                 });
                 setSocketAnswer(undefined);
+                saveLearningLevel();
               }}
             >
               닫기
@@ -204,6 +226,7 @@ function Learning() {
                   };
                 });
                 setSocketAnswer(undefined);
+                saveLearningLevel();
                 handleClickButton();
               }}
             >
@@ -302,4 +325,12 @@ function Learning() {
     )
 }
 
-export default Learning;
+
+function mapStateToProps(state) {
+  return {
+      user: state.user
+  }
+}
+
+
+export default connect(mapStateToProps)(Learning);

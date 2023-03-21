@@ -20,14 +20,15 @@ function App() {
   const AuthLoginPage = Auth(Login, false);
   const AuthRegisterPage = Auth(Register, false);
   const AuthMyPage = Auth(MyPage, true);
+  const AuthLearning = Auth(Learning, true);
 
 
   return (
     <>
       <Routes>
         <Route path="/" element={<AuthHomePage />} />
-        <Route path="/learning" element={<Learning />}></Route>
-        <Route exact path="/learning/:videoId" element={<Learning />}></Route>
+        <Route path="/learning" element={<AuthLearning />}></Route>
+        <Route exact path="/learning/:videoId" element={<AuthLearning />}></Route>
         <Route path="/dictionary" element={<Dictionary />}></Route>
         
         <Route path="/register" element={<AuthRegisterPage />} />
