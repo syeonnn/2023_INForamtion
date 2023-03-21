@@ -40,6 +40,7 @@ def create_app():
         result = get_top_n_frequency(seq_results, 3)
         print(result)
         emit("answer", result)
+        
 
     @socket.on("disconnect")
     def disconnect_socket():

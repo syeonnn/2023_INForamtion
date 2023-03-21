@@ -18,6 +18,30 @@ router.get("/auth", auth, (req, res) => {
     });
 });
 
+router.post("/update", async (req, res) => {
+    console.log("route update 실행");
+
+    await User.updateOne({email: req.body.email}, {level:req.body.level})
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+});
+
+router.post("/getUser", async (req, res) => {
+    console.log("route getUser 실행");
+    await User.findOne({ email: req.body.email })
+        .exec((err, user) => {
+            if(err) return res.status(400).send(err);
+            
+            res.status(200).json({ 
+                success: true, 
+                user
+            });
+        });
+});
 
 router.post("/login", async (req, res) => {
     console.log("route login 실행");

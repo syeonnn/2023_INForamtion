@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 // import data from './data.js'
-import { Link } from 'react-scroll';
+// import { Link } from 'react-scroll';
 
 
 export default function Dictionary() {

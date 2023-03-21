@@ -36,13 +36,6 @@ holistic.setOptions({
     minTrackingConfidence: 0.5
 });
 
-// function ServerToClientEvents(){
-
-// }
-
-// function ClientToServerEvents(){
-
-// }
 
 function MediaPipeWebcam({
     cameraOn,
@@ -79,6 +72,8 @@ function MediaPipeWebcam({
         leftHandLandmarks: h.NormalizedLandmarkList,
         rightHandLandmarks: h.NormalizedLandmarkList
     }]);
+   
+    // const [Loading, setLoading] = useState(false);
     const [Loading, setLoading] = useState(true);
 
     function onResults(results) {
@@ -89,9 +84,9 @@ function MediaPipeWebcam({
 
         const { poseLandmarks, leftHandLandmarks, rightHandLandmarks } = results;
         const data = {
-        poseLandmarks,
-        leftHandLandmarks,
-        rightHandLandmarks,
+            poseLandmarks,
+            leftHandLandmarks,
+            rightHandLandmarks,
         };
 
         setMediapipeData((cur) => {
@@ -196,6 +191,7 @@ function MediaPipeWebcam({
                     }
                     await holistic.send({ image: webcamRef.current?.video });
                     if(Loading)
+                        // setLoading(true);
                         setLoading(false);
                 },
                 //width: 640,
@@ -209,7 +205,7 @@ function MediaPipeWebcam({
     
             holistic.onResults(() => undefined);
     
-            camera.stop();
+            camera?.stop();
         };
     }, []);
 
@@ -229,16 +225,15 @@ function MediaPipeWebcam({
     
     useEffect(() => {
         if (socket) {
+
             const func = (data) => {
                 handleSetSocketAnswer && handleSetSocketAnswer(data);
             }
-          // 소켓 답변 얻어오는 함수
-          socket.on("answer", func);
-              
-          return () => {
-            socket.off("answer", func);
-            
-          };
+          
+            socket.on("answer", func);
+            return () => {
+                socket.off("answer", func);
+            };
         }
       }, [socket, handleSetSocketAnswer]);
       
@@ -254,7 +249,7 @@ function MediaPipeWebcam({
                     borderRadius: "0.8rem"
                 }}
             />
-            {cameraOn && < canvas className="canvas" 
+            {cameraOn && <canvas className="canvas" 
                 ref={canvasRef} 
                 style={{
                     marginLeft: "auto",

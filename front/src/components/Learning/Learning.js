@@ -5,6 +5,8 @@ import Loading from "./Loading";
 import Modal from "./Modal";
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom'
+import { connect, useSelector } from 'react-redux';
+
 
 import {
   StartButton,
@@ -28,6 +30,9 @@ const modalStyle = {
 function Learning() {
   //const { pathname } = useLocation();
   const navigate = useNavigate();
+  
+  const user = useSelector(state => state.user);
+  
   const [isLearningPage, setIsLearningPage] = useState(true);
   const [cameraOn, setCameraOn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +52,7 @@ function Learning() {
 
   const { videoId } = useParams();
   const [ Video, setVideo ] = useState([]);
+
 
 
   const isCameraSettingOn = () => {
@@ -90,22 +96,6 @@ function Learning() {
       });
   };
 
-
-  
-  const savelevel = async () => {
-    console.log("level: ",curSelected);
-
-    axios.post('', {
-      level: curSelected
-    })
-    // .then((res)=> {
-    //   if(res.data.success) {
-    //     console.log(res.data.);
-        
-    //   }
-    // })
-  }
- 
 
   useEffect(() => {
     if (!videoId) {
@@ -157,7 +147,6 @@ function Learning() {
   // socket에서 보내온 응답을 저장한다. ["a", "b", "c"]
   const handleSetSocketAnswer = (answer) => {
     setSocketAnswer(answer);
-    console.log(socketAnswer);
     if (checkAnswer(answer) !== undefined) {
       console.log("정답 받음")
       setIsModalOpen((cur) => {
@@ -169,7 +158,7 @@ function Learning() {
         };
       });
     } else {
-      console.log("오답 받음")
+     
       setIsModalOpen((cur) => {
         console.log("오답모달 고르는 중")
         return {
@@ -180,6 +169,25 @@ function Learning() {
       });
     }
   };
+
+  const saveLearningLevel = () => {
+    if (user.userData?.isAuth && Video) {
+      axios.post("/api/users/update", {
+        email: user.userData.email,
+        level: Video.mean // curSelected?.toLowerCase()  
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+    }
+  }
+
+  
+
+
 
   return (
     <div className="learningspace">
@@ -202,7 +210,8 @@ function Learning() {
                   };
                 });
                 setSocketAnswer(undefined);
-                savelevel();
+                
+                saveLearningLevel();
               }}
             >
               닫기
@@ -216,8 +225,8 @@ function Learning() {
                   };
                 });
                 setSocketAnswer(undefined);
+                saveLearningLevel();
                 handleClickButton();
-                savelevel();
               }}
             >
               다시하기
@@ -315,4 +324,12 @@ function Learning() {
     )
 }
 
-export default Learning;
+
+function mapStateToProps(state) {
+  return {
+      user: state.user
+  }
+}
+
+
+export default connect(mapStateToProps)(Learning);

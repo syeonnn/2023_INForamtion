@@ -19,21 +19,22 @@ function App() {
   const AuthHomePage = Auth(Home, null);
   const AuthLoginPage = Auth(Login, false);
   const AuthRegisterPage = Auth(Register, false);
-  // const AuthMyPage = Auth(, false);
+  const AuthMyPage = Auth(MyPage, true);
+  const AuthLearning = Auth(Learning, true);
 
 
   return (
     <>
       <Routes>
         <Route path="/" element={<AuthHomePage />} />
-        <Route path="/learning" element={<Learning />}></Route>
-        <Route exact path="/learning/:videoId" element={<Learning />}></Route>
+        <Route path="/learning" element={<AuthLearning />}></Route>
+        <Route exact path="/learning/:videoId" element={<AuthLearning />}></Route>
         <Route path="/dictionary" element={<Dictionary />}></Route>
         
         <Route path="/register" element={<AuthRegisterPage />} />
         <Route path="/login" element={<AuthLoginPage />} />
         // Auth 처리 필요
-        <Route path="/my-page" element={<MyPage />}></Route>
+        <Route path="/my-page" element={<AuthMyPage />}></Route>
     
       </Routes>
       
