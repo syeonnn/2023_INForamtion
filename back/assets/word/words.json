@@ -17,7 +17,7 @@
         "id": "good",
         "mean": "좋다",
         "description": "오른 주먹의 5지를 펴서 세워 전후로 두 번 움직인다.",
-        "imgName": ".jpg",
+        "imgName": "good.jpg",
         "exList": ["좋다","잘하다"]
     },
     {
@@ -25,28 +25,28 @@
         "mean": "영화",
         "description": "손등이 밖으로 손끝이 옆으로 향한 두 손을 약간의 간격을 두고 겹치게 하여 상하로 엇갈리게 두 번 움직인다.",
         "imgName": "movie.jpg",
-        "exList": []
+        "exList": ["나는 디즈니 영화를 좋아해"]
     },
     {
         "id": "book",
         "mean": "책",
         "description": "두 손을 펴서 손끝이 밖으로 향하게 하여 맞댔다가 손목을 양옆으로 돌려 편다.",
         "imgName": "book.jpg",
-        "exList": []
+        "exList": ["어떤 장르의 책을 좋아하니?"]
     },
     {
         "id": "music",
         "mean": "음악",
         "description": "오른 주먹의 1·2지를 펴서 반쯤 구부려 입 앞에서 돌리며 밖으로 올린다.",
         "imgName": "music.jpg",
-        "exList": []
+        "exList": ["라디오에서 음악이 나온다"]
     },
     {
         "id": "dog",
         "mean": "강아지",
         "description": "두 손을 자연스럽게 펴서 손바닥이 밖으로 손끝이 위로 향하게 세워 두 5지 끝을 머리 양쪽에 대고 두 손의 1·2·3·4지를 전후로 약간 흔든다.",
         "imgName": "dog.jpg",
-        "exList": []
+        "exList": ["갈색 강아지가 지나간다"]
     },
     {
         "id": "",

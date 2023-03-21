@@ -1,13 +1,11 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import data from './data.js'
+// import data from './data.js'
 
 export default function Dictionary() {
 
 
-    const [words, setWords] = useState(data);
-
-    //video정보 불러오듯 '단어 뜻, 수형 그림, 수형설명글, 예시문장' 불러오는 코드
-
+    const [Words, setWords] = useState([]);
 
     // 검색 입력받아 저장
     const [userInput, setUserInput] = useState('');
@@ -21,12 +19,62 @@ export default function Dictionary() {
     const onSearch = (e) => {
         e.preventDefault();
 
-        const searched = words.filter((item) => {
-            return item.engMean?.includes(userInput)
+        const searched = Words.filter((item) => {
+            return item.mean?.includes(userInput)
 
         
         });
     }
+
+    useEffect(() => {
+        axios.get("/api/words/getWords")
+            .then((response) => {
+                if (response.data.success) {
+                    // console.log(response.data.words);
+                    setWords(response.data.words);
+                } else {
+                    alert('Failed to get Words');
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }, []);
+
+    const ExList = example => <li>{example}</li>;
+
+    
+
+    function Card (props) {
+
+        return (
+            <div className="wordCard">
+                <div className='imgBox'>
+                    <img src={`../../assets/img/dictionary/${props.word.imgName}`} style={{ width: "100%", height: "100%", objectFit: "cover" }}></img>
+                </div>
+    
+                <div className='noteBox'>
+                    <div className='note1'>
+                        <h4 className="mt-1 fw-bold">{props.word.mean}</h4>
+                        <h5 className="text-primary mt-3 fw-bold">수형 설명</h5>
+                        <p className="mt-1">{props.word.description}</p>
+                    </div>
+                    <div className='note2'>
+                        <h5 className="text-primary mt-0 fw-bold"><br /><br />예시 문장 </h5>
+                        <div>
+                            {props.word.exList.map(ExList)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    const renderWord = Words.map((word, i) => {
+        return (
+            <Card key={word.id} word={Words[i]} i={i}></Card>
+        )
+    })
 
 
     return (
@@ -40,61 +88,12 @@ export default function Dictionary() {
 
                     
                     {searched && searched.map((item) => (
-                        <Card key={item.engMean} {...item} />
+                        <Card key={item.id} {...item} />
                     ))}
                 </div>
-
-                {
-                    words.map((a, i) => {
-                        return (
-                            <Card key={a.id} word={words[i]} i={i}></Card>
-
-                            // <div className="wordCard">
-                            //     <div className='imgBox'>
-                            //         <img src={'../../assets/img/dictionary/word' + (i + 1) + '.jpg'} style={{ width: "100%", height: "100%", objectFit: "cover" }}></img>
-                            //     </div>
-
-                            //     <div className='noteBox'>
-                            //         <div className='note1'>
-                            //             <h4 className="mt-1 fw-bold">{a.mean}</h4>
-                            //             <h5 className="text-primary mt-3 fw-bold">수형 설명</h5>
-                            //             <p className="mt-1">{a.description}</p>
-                            //         </div>
-                            //         <div className='note2'>
-                            //             <h5 className="text-primary mt-0 fw-bold"><br /><br />예시 문장 </h5>
-                            //             <p className="mt-1">• {a.example1}<br />• {a.example2}</p>
-                            //         </div>
-                            //     </div>
-
-                            // </div>
-                        )
-                    })
-                }
-
-
+                {renderWord}
             </div>
         </div>
     )
 }
 
-function Card(props) {
-    return (
-        <div className="wordCard">
-            <div className='imgBox'>
-                <img src={'../../assets/img/dictionary/word' + (props.i + 1) + '.jpg'} style={{ width: "100%", height: "100%", objectFit: "cover" }}></img>
-            </div>
-
-            <div className='noteBox'>
-                <div className='note1'>
-                    <h4 className="mt-1 fw-bold">{props.word.mean}</h4>
-                    <h5 className="text-primary mt-3 fw-bold">수형 설명</h5>
-                    <p className="mt-1">{props.word.description}</p>
-                </div>
-                <div className='note2'>
-                    <h5 className="text-primary mt-0 fw-bold"><br /><br />예시 문장 </h5>
-                    <p className="mt-1">• {props.word.example1}<br />• {props.word.example2}</p>
-                </div>
-            </div>
-        </div>
-    )
-}
