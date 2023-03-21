@@ -6,6 +6,23 @@ export default function MyPage() {
 
     // 백에서 사용자 정보 받아오기 
 
+    // useEffect(() => {
+    //     axios.get("/api/user")
+    //         .then((response) => {
+    //             if (response.data.success) {
+    //                 // console.log(response.data.words);
+    //                 setWords(response.data.words);
+    //             } else {
+    //                 alert('Failed to get User Info');
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.error(err);
+    //         })
+    // }, []);
+
+
+
     return (
         <div className='mp-space'>
             <div className='profileBox'>

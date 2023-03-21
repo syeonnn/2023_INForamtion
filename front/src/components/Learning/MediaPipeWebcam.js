@@ -79,7 +79,7 @@ function MediaPipeWebcam({
         leftHandLandmarks: h.NormalizedLandmarkList,
         rightHandLandmarks: h.NormalizedLandmarkList
     }]);
-    const [Loading, setLoading] = useState(false);
+    const [Loading, setLoading] = useState(true);
 
     function onResults(results) {
 
@@ -149,7 +149,7 @@ function MediaPipeWebcam({
     //const endRef = useRef();
 
     useEffect(() => {
-        if (mediapipeData.length === 50) {
+        if (mediapipeData.length === 30) {
           //startRef.current = new Date();
           // 50개가 다 차면 정답을 기다리는 모달을 띄우기 위함
           openModal && openModal();
@@ -196,7 +196,7 @@ function MediaPipeWebcam({
                     }
                     await holistic.send({ image: webcamRef.current?.video });
                     if(Loading)
-                        setLoading(true);
+                        setLoading(false);
                 },
                 //width: 640,
                 //height: 480,
@@ -229,17 +229,14 @@ function MediaPipeWebcam({
     
     useEffect(() => {
         if (socket) {
-          
+            const func = (data) => {
+                handleSetSocketAnswer && handleSetSocketAnswer(data);
+            }
           // 소켓 답변 얻어오는 함수
-          socket.on("answer", (data)=>{
-            handleSetSocketAnswer && handleSetSocketAnswer(data);
-            console.log("got answer");
-          });
+          socket.on("answer", func);
               
           return () => {
-            socket.off("answer", (data)=>{
-                console.log("remove answer in socket");
-            });
+            socket.off("answer", func);
             
           };
         }
@@ -257,7 +254,7 @@ function MediaPipeWebcam({
                     borderRadius: "0.8rem"
                 }}
             />
-            <canvas className="canvas" 
+            {cameraOn && < canvas className="canvas" 
                 ref={canvasRef} 
                 style={{
                     marginLeft: "auto",
@@ -265,7 +262,7 @@ function MediaPipeWebcam({
                     textAlign: "center",
                     zIndex: 9,
                     borderRadius: "0.8rem"
-            }} />
+            }} />}
         </div>
     )
 }

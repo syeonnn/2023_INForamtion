@@ -38,6 +38,7 @@ def create_app():
             for frame_no in range(0, len(data)-30, 4):
                 seq_results += model.predict(data[frame_no:frame_no + 30])
         result = get_top_n_frequency(seq_results, 3)
+        print(result)
         emit("answer", result)
 
     @socket.on("disconnect")

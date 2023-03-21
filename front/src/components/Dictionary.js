@@ -9,13 +9,13 @@ export default function Dictionary() {
     //서버에서 받아온 단어 정보 저장하는 변수
     const [Words, setWords] = useState([]);
     //해당 부분으로 스크롤 자동 이동하는 hook
-    function useMoveScroll() {
-        const element = useRef(null);
-        const onMoveToElement = () => {
-            element.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        };
-        return { element, onMoveToElement };
-    }
+    // function useMoveScroll() {
+    //     var elem = document.getElementById("element");
+    //     const onMoveToElement = () => {
+    //         element.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    //     };
+    //     return { element, onMoveToElement };
+    // }
 
     //유사배열로 저장
     // const wordslist = {

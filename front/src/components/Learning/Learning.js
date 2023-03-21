@@ -90,6 +90,23 @@ function Learning() {
       });
   };
 
+
+  
+  const savelevel = async () => {
+    console.log("level: ",curSelected);
+
+    axios.post('', {
+      level: curSelected
+    })
+    // .then((res)=> {
+    //   if(res.data.success) {
+    //     console.log(res.data.);
+        
+    //   }
+    // })
+  }
+ 
+
   useEffect(() => {
     if (!videoId) {
       console.log("videoId is null");
@@ -131,11 +148,8 @@ function Learning() {
    // socket에서 넘어온 데이터 중에 내가 최근 선택한 값이 들어있는지 확인
    const checkAnswer = (answer) => {
     if (Array.isArray(answer)) {
-      console.log(answer);
       return answer.find((ans) => {
-        console.log(ans === curSelected.toLowerCase());
         return ans === curSelected.toLowerCase();
-        
       });
     }
   };
@@ -143,8 +157,11 @@ function Learning() {
   // socket에서 보내온 응답을 저장한다. ["a", "b", "c"]
   const handleSetSocketAnswer = (answer) => {
     setSocketAnswer(answer);
+    console.log(socketAnswer);
     if (checkAnswer(answer) !== undefined) {
+      console.log("정답 받음")
       setIsModalOpen((cur) => {
+        console.log("정답모달 고르는 중")
         return {
           ...cur,
           waitingAnswerModal: false,
@@ -152,7 +169,9 @@ function Learning() {
         };
       });
     } else {
+      console.log("오답 받음")
       setIsModalOpen((cur) => {
+        console.log("오답모달 고르는 중")
         return {
           ...cur,
           waitingAnswerModal: false,
@@ -162,12 +181,7 @@ function Learning() {
     }
   };
 
-  
-
-
-
   return (
-
     <div className="learningspace">
       <>
         <Modal visible={isModalOpen.loadingModal} style={modalStyle}>
@@ -188,6 +202,7 @@ function Learning() {
                   };
                 });
                 setSocketAnswer(undefined);
+                savelevel();
               }}
             >
               닫기
@@ -202,6 +217,7 @@ function Learning() {
                 });
                 setSocketAnswer(undefined);
                 handleClickButton();
+                savelevel();
               }}
             >
               다시하기
