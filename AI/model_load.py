@@ -8,13 +8,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Actions that we try to detect
 def set_actions():
-    alphabet = np.array([chr(ord('a') + i) for i in range(26)])
-    words = np.array([
-        "angel", "banana", "cry", "dance", "egg", "fun", "game", "house",
-        "internet", "jump", "key", "love", "music", "name",
-        "open", "paper", "rabbit", "school", "tiger", "video", "walk"])
-    return np.concatenate((alphabet, words))
-
+    words = np.array(['hi', 'thx', 'good', 'movie','book','music','dog'])
+    return words
 
 # load model by folder name
 def build_model(actions):
@@ -31,7 +26,7 @@ def build_model(actions):
     model.add(tf.keras.layers.Dense(32, activation='tanh')) # , activation='relu'))
     model.add(tf.keras.layers.Dense(actions.shape[0], activation='softmax'))
 
-    weight = 'sl_model_weight.h5'
+    weight = 'action_weights_0320.h5'
     base_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(base_dir, 'weights', weight)
     model.load_weights(file_path)
