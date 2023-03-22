@@ -65,8 +65,6 @@ useEffect(() => {
 
 const ExList = example => <li>{example}</li>;
 
-
-
 function Card(props) {
 
     return (

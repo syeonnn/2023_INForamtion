@@ -29,9 +29,12 @@ function MyPage() {
         }
     }, [user]);
 
+    const itemList = item => <li>{item}</li>
+
     if (user.userData && user.userData?.isAuth) {
         return (
             <div className='mp-space'>
+                <h1>마이 페이지</h1>
                 <div className='profileBox'>
                     <i className="fa-solid fa-circle-user fa-4x" style={{color:"#f4623a"}} ></i>
                     <div className='profileName'>
@@ -43,11 +46,16 @@ function MyPage() {
                 <div className='historyBox'>
                     <h5>학습 이력</h5>
                     <div className='historyList'>
-                        {UserInfo.level !== undefined ? (
+                        {UserInfo.studyList !== undefined ? (
+                            UserInfo.studyList.map(itemList)
+                        ):(
+                            <p>아직 학습하지 않았네요!</p>
+                        )}
+                        {/* {UserInfo.level !== undefined ? (
                             <p>{UserInfo.level}</p>
                         ) : (
                             <p>아직 학습하지 않았네요!</p>
-                        )}
+                        )} */}
                     </div>
                 </div>
             </div >

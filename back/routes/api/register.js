@@ -12,7 +12,7 @@ function checkPassword (password, cpassword) {
 };
 
 // @route  POST api/users/register
-// @desc   Register user
+// @desc   Create and save new User
 // @access Public
 router.post("/", async (req, res) => {
     const { name, email, password, cpassword } = req.body;

@@ -18,8 +18,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         minglength: 5
     },
-    level: {
-        type: String,
+    studyList: {
+        type: Array,
     },
     token : {
         type: String,
