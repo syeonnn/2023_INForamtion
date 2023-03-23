@@ -242,8 +242,8 @@ function MediaPipeWebcam({
             <Webcam
                 ref={webcamRef}
                 style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
+                    margin: "auto",
+                    
                     textAlign: "center",
                     zIndex: 3,
                     borderRadius: "0.8rem"

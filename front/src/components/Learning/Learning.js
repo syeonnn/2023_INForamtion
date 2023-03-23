@@ -1,13 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
 import MediaPipeWebCam from "./MediaPipeWebcam";
-import { io } from "socket.io-client";
 import Loading from "./Loading";
 import Modal from "./Modal";
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom'
 import { connect, useSelector } from 'react-redux';
-
-
 import {
   StartButton,
   StartTriangle,
@@ -15,7 +12,6 @@ import {
   ModalButtonContainer,
 } from "./index.style";
 
-export const ALPHABET_LENGTH = 26;
 
 const modalStyle = {
   width: "600px",
@@ -28,9 +24,9 @@ const modalStyle = {
 };
 
 function Learning() {
-  //const { pathname } = useLocation();
+
   const navigate = useNavigate();
-  
+
   const user = useSelector(state => state.user);
   
   const [isLearningPage, setIsLearningPage] = useState(true);
@@ -43,16 +39,10 @@ function Learning() {
     correctModal: false,
     wrongModal: false,
   });
-
   const [curSelected, setCurSelected] = useState("");
-
   const lazyStartTimerId = useRef(null);
-  //const [isLogin] = useAtom(loginAtom);
-  //const [, setUser] = useAtom(userAtom);
-
   const { videoId } = useParams();
   const [ Video, setVideo ] = useState([]);
-
 
 
   const isCameraSettingOn = () => {
@@ -185,8 +175,6 @@ function Learning() {
     }
   }
 
-  
-
 
 
   return (
@@ -280,24 +268,21 @@ function Learning() {
       <div className="contents">
         <div className="columns">
           <div className="column">
-            <article className="panel">
+            <article className="panel" style={{height: "75vh"}}>
               <p className="panel-heading">
-                단어 :{Video.mean}
+                {Video.mean}
               </p>
               <div className="panel-block">
-                  <video style={{ width: '100%' }} src={`http://localhost:4000/api/video/detail?id=${Video.fileName}`} controls></video>
+                  <video style={{ width: '100%' }} src={`http://localhost:4000/api/video/detail?id=${Video.id}`} controls></video>
               </div>
-                  <p className="panel-footer" >
-                    단어 :{Video.mean}</p>
-                  <p className="panel-footer" >
-                    수형 설명 :{Video.description}</p>
-                  <p className="panel-footer">
-                    출처: 국립 국어원 한국 수어 사전</p>
+                  <p className="panel-footer" style={{fontWeight:"bold"}} >
+                    {Video.description}</p>
+                    <p className="panel-footer" style={{color:"#6c757d"}}>
+                    [출처] 국립 국어원 한국 수어 사전</p>
               </article>
           </div>
           <div className="column">
-            <article className="panel" style={{ backgroundColor: "#11264f", borderRadius: "0.8rem" }}>
-              <div className="panel-block-right" >
+            <article className="panel align-items-center justify-content-center flex-row" style={{ height: "75vh", padding: "12px", boxSizing:"border-box" , display:"flex"}}>
                 <MediaPipeWebCam
                   cameraOn={cameraOn}
                   handleOffMediapipe={handleOffMediapipe}
@@ -308,13 +293,10 @@ function Learning() {
                 <StartButton
                   onClick={handleClickButton}
                   cameraOn={cameraOn}
-                  data-tip="game-Guide"
-                  data-for="game-Guide"
                 >
                   <StartTriangle cameraOn={cameraOn} />
                 </StartButton>
 
-              </div>
             </article>
           </div>
         </div>

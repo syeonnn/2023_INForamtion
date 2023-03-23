@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 
-
 export const StartButton = styled.div`
   z-index: 9;
   width: 10rem;
@@ -22,14 +21,6 @@ export const StartTriangle = styled.div`
   border-left: 30px solid white;
   transition: opacity 0.5s ease;
   opacity: ${(props) => (props.cameraOn ? 0 : 1)};
-`;
-
-
-export const ToolTipContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const ModalButtonContainer = styled.div`

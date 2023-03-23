@@ -29,14 +29,22 @@ function MyPage() {
         }
     }, [user]);
 
+    // const LevelList = level => {
+    //     <ul className='custom-list'>
+    //     <li>{level}</li>;
+    //     </ul>
+    // }
+
+    // {UserInfo.level.map(LevelList)}
+
     if (user.userData && user.userData?.isAuth) {
         return (
             <div className='mp-space'>
                 <div className='profileBox'>
                     <i className="fa-solid fa-circle-user fa-4x" style={{color:"#f4623a"}} ></i>
                     <div className='profileName'>
-                    이름: <p>{UserInfo.name}</p>
-                    이메일: <p style={{fontSize:"small"}}>{UserInfo.email}</p>
+                    <p className='fw-bolder'>{UserInfo.name}</p>
+                    <p style={{fontSize:"small"}}>{UserInfo.email}</p>
                     </div>
                 </div>
                 <div className='v-line'></div>
@@ -66,3 +74,6 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps)(MyPage);
+
+
+

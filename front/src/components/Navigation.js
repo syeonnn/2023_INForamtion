@@ -81,7 +81,9 @@ export default function Navigation() {
                         </ul>
                     ) : (
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                             <li className="dropdown-item"><Link to={()=> false} className="nav-link" onClick={logoutHandler}>로그아웃</Link></li>
+                            <li className="dropdown-item"><Link to={()=> false} className="nav-link" onClick={logoutHandler}>로그아웃</Link></li>
+                           <li className="dropdown-item"><Link to="/my-page" className="nav-link">마이페이지</Link></li>
+
                         </ul>
                     )}
                 </li>
