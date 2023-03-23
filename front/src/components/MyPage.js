@@ -34,8 +34,9 @@ function MyPage() {
     if (user.userData && user.userData?.isAuth) {
         return (
             <div className='mp-space'>
-                <h1>마이 페이지</h1>
-                <div className='profileBox'>
+                <h1 style={{margin: "20px 0 30px 0"}}>마이 페이지</h1>
+                <div className='mp-columns'>
+                <div className='profile-column'>
                     <i className="fa-solid fa-circle-user fa-4x" style={{color:"#f4623a"}} ></i>
                     <div className='profileName'>
                     <p className='fw-bolder'>{UserInfo.name}</p>
@@ -43,8 +44,11 @@ function MyPage() {
                     </div>
                 </div>
                 <div className='v-line'></div>
-                <div className='historyBox'>
-                    <h5>학습 이력</h5>
+                
+                <div className='history-column'>
+                    <h5 style={{fontWeight:"bold"}}>학습 이력</h5>
+                    <p>{UserInfo.name} 님이 학습하신 단어들입니다.</p>
+                    
                     <div className='historyList'>
                         {UserInfo.studyList !== undefined ? (
                             UserInfo.studyList.map(itemList)
@@ -52,6 +56,7 @@ function MyPage() {
                             <p>아직 학습하지 않았네요!</p>
                         )}
                     </div>
+                </div>
                 </div>
             </div >
         )

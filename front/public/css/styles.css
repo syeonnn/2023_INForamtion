@@ -5507,15 +5507,15 @@ header.masthead .h1 {
   margin-left: -0.75rem;
 }
  .column {
-  display:block;
+  display:flex;
   flex-basis: 0;
   flex-grow: 1;
   flex-shrink: 1;
   padding: 0.75rem;
  }
- .article{
+ /* .article{
   display: inline-block;
- }
+ } */
  .panel {
     border-radius: 6px;
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
@@ -6167,8 +6167,7 @@ body {
 }
 
 .register,
-.login,
-.quizspace {
+.login {
   padding-top: 71px;
   padding-left: 225px;
   background-color: transparent;
@@ -6308,7 +6307,7 @@ body {
   background-color: #fff;
 
   display: flex;
-  position: relative;
+  justify-content: flex-start;
 
 }
 
@@ -6318,22 +6317,22 @@ body {
 }
 
 .noteBox {
-  position: absolute;
-  left: 200px;
   display: flex;
+  justify-content: flex-end;
 }
 
 .note1 {
  margin: 10px;
  box-sizing: border-box;
- flex-shrink: 0;
- width: 410px;
+ flex-shrink: 1;
+ flex-grow: 1;
+
 }
 
 .note2 {
   margin: 10px;
-  padding-left: 10px;
   box-sizing: border-box;
+  flex-shrink: 1;
   flex-grow: 1;
 }
 
@@ -6342,54 +6341,38 @@ body {
   padding-left: 225px;
   padding-bottom: 40px;
   display: flex;
-}
-
-.profileBox {
-  margin : 30px auto auto;
-  height: 200px;
-  width: 30%;
-  padding: 15px 30px;
-  background-color: var(--bs-gray-100);
-
-  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.profileName {
-  margin: 18px 0 0 20px;
+.mp-columns{
+  display: flex;
   justify-content: center;
 }
+.profile-column {
+  display:flex;
+  padding: 15px 30px;
+  flex-basis: 1;
+  flex-shrink: 1;
 
+ }
+.profileName {
+  margin: 4px 0 0 20px;
+  justify-content: center;
+}
 .v-line {
-  margin-top: 40px;
+  margin-top: 20px;
   border-left : medium solid var(--bs-primary);
   height : 300px;
 }
-
-.historyBox {
-  margin: 30px auto auto;
-  height: 200px;
-  width: 40%;
-  padding: 25px 50px;
-  background-color: var(--bs-gray-100);
+.history-column{
+  display:flex;
+  padding: 15px 30px;
+  flex-basis: 2;
+  flex-grow: 1;
+  flex-shrink: 1;
   flex-direction: column;
 }
 .historyList {
   padding-top : 7px;
-}
-
-ul.custom-list {
-  list-style: none;
-}
-ul.custom-list li:before {
-  content: "";
-  height: 0;
-  width: 0;
-  border-color: transparent #fcb400;
-    border-style: solid;
-  border-width: 0.5em 0 0.5em 0.5em;
-  position: relative;
-  display: block;
-  left: -1em;
-  top: 1.25em;
 }

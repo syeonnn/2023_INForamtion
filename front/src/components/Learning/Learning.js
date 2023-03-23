@@ -275,13 +275,14 @@ function Learning() {
                   <video style={{ width: '100%' }} src={`http://localhost:4000/api/video/detail?src=${Video.fileName}`} controls></video>
               </div>
                   <p className="panel-footer" style={{fontWeight:"bold"}} >
-                    {Video.description}</p>
-                    <p className="panel-footer" style={{color:"#6c757d"}}>
+                    {Video.description}
+                    <p style={{fontWeight:"normal", color:"#6c757d"}}>
                     [출처] 국립 국어원 한국 수어 사전</p>
+                  </p>
               </article>
           </div>
           <div className="column">
-            <article className="panel align-items-center justify-content-center flex-row" style={{ height: "75vh", padding: "12px", boxSizing:"border-box" , display:"flex"}}>
+            <article className="panel align-items-center justify-content-center" style={{ height: "75vh", padding: "12px", boxSizing:"border-box" , display:"flex"}}>
                 <MediaPipeWebCam
                   cameraOn={cameraOn}
                   handleOffMediapipe={handleOffMediapipe}

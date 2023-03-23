@@ -80,6 +80,7 @@ return (
             {renderWord}
 
         </div>
+        <p style={{margin:"10px 0 0 40px",fontWeight:"normal", color:"#6c757d"}}>[출처] 국립 국어원 한국 수어 사전</p>
     </div>
 )
                     
