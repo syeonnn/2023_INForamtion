@@ -272,7 +272,7 @@ function Learning() {
                 {Video.mean}
               </p>
               <div className="panel-block">
-                  <video style={{ width: '100%' }} src={`http://localhost:4000/api/video/detail?src=${Video.fileName}`} controls></video>
+                  <video autoplay="autoplay" controls style={{ width: '100%' }} src={`http://localhost:4000/api/video/detail?src=${Video.fileName}`}></video>
               </div>
                   <p className="panel-footer" style={{fontWeight:"bold"}} >
                     {Video.description}

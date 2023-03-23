@@ -61,11 +61,11 @@ export default function Navigation() {
     return (
         <div className="sb-nav-fixed">
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark navbar-shrink" id="mainNav">
-            <NavLink to="#page-top" className="navbar-brand ps-3">
+            <NavLink to="/" className="navbar-brand ps-3">
                 생활 수어
             </NavLink>
 
-            <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <ul className="navbar-nav me-lg-4">
 
                 <li className="nav-item dropdown">
                     <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fas fa-user fa-fw"></i></Link>
