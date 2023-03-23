@@ -41,8 +41,7 @@ export default function Navigation() {
     }, []);
 
     const renderWordLink = Videos.map((video, index) => {
-        // console.log("renderWordLink: ", video); 
-        const fileName = video.fileName.split('.')[0];
+        const fileName = video.id;
         
         return (
         <nav className="sb-sidenav-menu-nested nav" id="sideNavVideo">
@@ -76,14 +75,12 @@ export default function Navigation() {
                             
                             <li className="dropdown-item"><NavLink to="/register" className="nav-link">회원가입</NavLink></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li className="dropdown-item"><Link to="/my-page" className="nav-link">마이페이지</Link></li>
 
                         </ul>
                     ) : (
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li className="dropdown-item"><Link to="/my-page" className="nav-link">마이페이지</Link></li>
                             <li className="dropdown-item"><Link to={()=> false} className="nav-link" onClick={logoutHandler}>로그아웃</Link></li>
-                           <li className="dropdown-item"><Link to="/my-page" className="nav-link">마이페이지</Link></li>
-
                         </ul>
                     )}
                 </li>

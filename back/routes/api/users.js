@@ -4,7 +4,7 @@ const { User } = require("../../models/User");
 const { auth } = require("../../middleware/auth");
 
 // @route  GET api/users/auth
-// @desc   auth 미들웨어 실행 -> user 정보를 클라이언트로 제공
+// @desc   Execute auth middleware -> Send User info to Client 
 // @access Public
 router.get("/auth", auth, (req, res) => {
     console.log("/api/users/auth 실행");
@@ -18,20 +18,63 @@ router.get("/auth", auth, (req, res) => {
     });
 });
 
+// @route  POST api/users/update
+// @desc   Update User with email
+// @access Public
 router.post("/update", async (req, res) => {
     console.log("route update 실행");
 
-    await User.updateOne({email: req.body.email}, {level:req.body.level})
-        .then((result) => {
-            res.send(result);
+    // await User.updateOne({email: req.body.email}, {level:req.body.level})
+    //     .then((result) => {
+    //         res.send(result);
+    //     })
+    //     .catch((err) => {
+    //         console.error(err);
+    //     })
+    
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+        return res.status(400).send({
+            success: false,
+            msg: "존재하지 않는 사용자입니다."
+        });
+    }
+
+
+    // 해당 단어를 학습하지 않았을 때, array에 추가
+    if (!user.studyList.includes(req.body.level)) {
+        console.log("아직 학습하지 않은 단어");
+
+        await User.updateOne(
+            { email: req.body.email },
+            { $push:{studyList : req.body.level }})
+            .then((result) => {
+                res.send({
+                    success: false,
+                    result
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    } else {
+        console.log("이미 학습한 단어");
+
+        res.send({
+            success: true,
+            msg: "이미 학습한 단어."
         })
-        .catch((err) => {
-            console.error(err);
-        })
+    }
 });
 
+
+// @route  POST api/users/getUser
+// @desc   Find User by email.  
+// @access Public
 router.post("/getUser", async (req, res) => {
     console.log("route getUser 실행");
+
     await User.findOne({ email: req.body.email })
         .exec((err, user) => {
             if(err) return res.status(400).send(err);
@@ -43,6 +86,10 @@ router.post("/getUser", async (req, res) => {
         });
 });
 
+
+// @route  POST api/users/login
+// @desc   Find User by email and compare password. If it's same, generate Token.  
+// @access Public
 router.post("/login", async (req, res) => {
     console.log("route login 실행");
 
@@ -98,6 +145,10 @@ router.post("/login", async (req, res) => {
     }
 });
 
+
+// @route  GET api/users/logout
+// @desc   Find User by _id and clear token, tokenExp.
+// @access Public
 router.get("/logout", auth, (req, res) => {
     console.log("route logout 실행");
 

@@ -1,0 +1,50 @@
+[
+    {
+        "id": "hi",
+        "mean": "안녕하세요",
+        "description": "두 주먹을 쥐고 바닥이 아래로 향하게 하여 가슴 앞에서 아래로 내린다.",
+        "fileName": "hi.mp4"
+    },
+    {
+        "id": "thx",
+        "mean": "감사합니다",
+        "description": "손끝이 밖으로 향하게 펴서 모로 세운 오른손의 4지 옆면을 손바닥이 아래로 향하게 편 왼 손등에 두 번 댄다.",
+        "fileName": "thx.mp4"
+    },
+    {
+        "id": "good",
+        "mean": "좋다",
+        "description": "오른 주먹의 5지를 펴서 세워 전후로 두 번 움직인다.",
+        "fileName": "good.mp4"
+    },
+    {
+        "id": "movie",
+        "mean": "영화",
+        "description": "손등이 밖으로 손끝이 옆으로 향한 두 손을 약간의 간격을 두고 겹치게 하여 상하로 엇갈리게 두 번 움직인다.",
+        "fileName": "movie.mp4"
+    },
+    {
+        "id": "book",
+        "mean": "책",
+        "description": "두 손을 펴서 손끝이 밖으로 향하게 하여 맞댔다가 손목을 양옆으로 돌려 편다.",
+        "fileName": "book.mp4"
+    },
+    {
+        "id": "music",
+        "mean": "음악",
+        "description": "오른 주먹의 1·2지를 펴서 반쯤 구부려 입 앞에서 돌리며 밖으로 올린다.",
+        "fileName": "music.mp4"
+    },
+    {
+        "id": "dog",
+        "mean": "강아지",
+        "description": "두 손을 자연스럽게 펴서 손바닥이 밖으로 손끝이 위로 향하게 세워 두 5지 끝을 머리 양쪽에 대고 두 손의 1·2·3·4지를 전후로 약간 흔든다.",
+        "fileName": "dog.mp4"
+    },
+    {
+        "id": "",
+        "mean": "",
+        "description": "",
+        "fileName": ".mp4"
+    }
+]

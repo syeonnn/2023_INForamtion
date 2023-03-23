@@ -37,7 +37,6 @@ useEffect(() => {
 
 const ExList = example => <li>{example}</li>;
 
-
 function Card(props) {
     return (
         <div id={props.word.id} className="wordCard">
@@ -67,7 +66,6 @@ const renderWord = Words.map((word, i) => {
         <Card key={word.id} word={Words[i]} i={i}></Card>
     )
 })
-
 
 return (
     <div className="dic-space">
