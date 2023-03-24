@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -30,7 +29,6 @@ export default function Home() {
                             <hr className="divider divider-light" />
                             <p className="text-white-75 mb-4">농인 사회에서는 이름을 표현할 때 지문자를 쓰기보다 '수어 이름'을 만들어 사용합니다. 보통 외관 상에 드러나는 특징에 따라 이름을 짓는 경우가 많아 '얼굴 이름'이라고도 부릅니다. 이는 농인 사회의 대표적인 문화입니다. <br />따라서, 저희는 이름 소개를 위해 지문자를 소개하는 대신 얼굴 이름을 만들어 보길 제안하겠습니다.
                                 <br /><br />Tip! 얼굴 이름은 예쁘기 보다 기억하기 좋은 특징적인 이름이 좋다고 합니다.</p>
-                            <NavLink to="/learning" className="btn btn-light btn-xl">학습하러 가기</NavLink>
                         </div>
                     </div>
                 </div>

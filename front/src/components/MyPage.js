@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 
 function MyPage() {
@@ -30,9 +31,10 @@ function MyPage() {
     }, [user]);
 
     const itemList = item => <li>{item}</li>
+    // <Link to={'/learning/'+item}></Link>
+
 
     if (user.userData && user.userData?.isAuth) {
-        const List = UserInfo.studyList;
         return (
             <div className='mp-space'>
                 <h1 style={{margin: "20px 0 30px 0"}}>마이 페이지</h1>
@@ -50,14 +52,24 @@ function MyPage() {
                     <h5 style={{fontWeight:"bold"}}>학습 이력</h5>
                     <p>{UserInfo.name} 님이 학습하신 단어들입니다.</p>
                     
-
                     <div className='historyList'>
                         { 
-                            List.length !== 0 ? (
-                            UserInfo.studyList.map(itemList)
-                        ):(
-                            <p>이런, 아직 학습하지 않았네요!</p>
-                        )}
+                            ( UserInfo.studyList !== undefined && UserInfo.studyList.length > 0 ) ?
+                            ( 
+                                UserInfo.studyList.map(itemList) 
+                            ):
+                            (   
+                                <p>아직 학습하지 않았네요!</p>
+                            )
+
+                        //     (UserInfo.studyList !== undefined) ? (
+                        //     (UserInfo.studyList).length !== 0 ? (
+                        //     UserInfo.studyList.map(itemList)
+                        // ):(
+                        //     <p>아직 학습하지 않았네요!</p>
+                        // )):(console.log("No studyList"))
+                        }
+                        
                     </div>
                 </div>
                 </div>
@@ -66,7 +78,6 @@ function MyPage() {
     } else {
         <div>Is Loading...</div>
     }
-    
 }
 
 function mapStateToProps(state) {
