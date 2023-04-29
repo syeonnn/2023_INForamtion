@@ -65,6 +65,7 @@ function Login(props) {
                                 id="email"
                                 type="email"
                                 className="form_input"
+                                //autocomplete ="off"
                             /><br />
                         </div>
 

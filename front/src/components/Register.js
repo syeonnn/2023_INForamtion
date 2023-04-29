@@ -74,6 +74,7 @@ function Register(props) {
                                 placeholder="이름"
                                 type="text"
                                 className="form_input"
+                                //autocomplete ="off"
                             /><br />
                         </div>
                         <div className="form_block">
@@ -83,6 +84,7 @@ function Register(props) {
                                 placeholder="example@gmail.com"
                                 type="text"
                                 className="form_input"
+                                //autocomplete ="off"
                             /><br />
                         </div>
                         <div className="form_block">

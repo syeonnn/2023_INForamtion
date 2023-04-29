@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import './App.css';
 import { Routes, Route } from 'react-router-dom'
 import React from "react";
@@ -33,7 +32,6 @@ function App() {
         
         <Route path="/register" element={<AuthRegisterPage />} />
         <Route path="/login" element={<AuthLoginPage />} />
-        // Auth 처리 필요
         <Route path="/my-page" element={<AuthMyPage />}></Route>
     
       </Routes>
